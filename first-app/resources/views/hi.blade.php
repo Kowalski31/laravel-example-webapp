@@ -1,1 +1,2 @@
-<h1>Eiyoooo</h1>
+<h1>Đây là method /POST của path '/khanhtoan'</h1>
+
