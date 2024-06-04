@@ -33,7 +33,8 @@ class CategoriesController extends Controller
 
     // Phuong thuc POST
     public function handleAddCategory() {
-        return 'Submit thêm chuyên mục';
+        return redirect(route('categories.add'));
+        // return 'Submit thêm chuyên mục';
     }
 
     // Phuong thuc DELETE

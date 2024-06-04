@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\Admin\ProductsController;
 
 // Client Routes
 
@@ -24,6 +25,11 @@ Route::prefix('categories')->group(function() {
 
     //Xoa chuyen muc
     Route::delete('delete/{id}', [CategoriesController::class, 'deleteCategory'])->name('categories.delete');
+});
+
+Route::prefix('admin')->group(function() {
+    Route::resource('products', ProductsController::class);
+
 });
 
 // Route::get('/', [HomeController::class, 'index'])->name('home');
