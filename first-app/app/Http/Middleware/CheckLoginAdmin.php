@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckPermission
+class CheckLoginAdmin
 {
     /**
      * Handle an incoming request.
@@ -15,9 +15,10 @@ class CheckPermission
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return route('home');
-        
-    }
+        if ($request->input('token') !== 'my-secret-token') {
+            return redirect('admin');
+        }
 
-    
+        return $next($request);
+    }
 }

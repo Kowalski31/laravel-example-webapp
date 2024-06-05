@@ -4,8 +4,13 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\HomeController;
 
 // Client Routes
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 
 Route::prefix('categories')->group(function() {
     //Danh sach chuyen muc
@@ -27,9 +32,13 @@ Route::prefix('categories')->group(function() {
     Route::delete('delete/{id}', [CategoriesController::class, 'deleteCategory'])->name('categories.delete');
 });
 
-Route::prefix('admin')->group(function() {
-    Route::resource('products', ProductsController::class);
 
+Route::get('san-pham/{id}', [HomeController::class, 'getProductDetail']);
+
+// Admin Routes
+Route::prefix('admin')->group(function() {
+    Route::get('/', [DashboardController::class, 'index']);
+    Route::resource('products', ProductsController::class);
 });
 
 // Route::get('/', [HomeController::class, 'index'])->name('home');
