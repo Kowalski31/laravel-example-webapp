@@ -56,7 +56,7 @@
         <div class="page-header">
           <div class="container-fluid">
 
-            <h1 style="color: white;">Add Category</h1>
+            <h1 style="color: white; text-align: center">Add Category</h1>
 
             <div class="div_deg">
 
@@ -75,14 +75,25 @@
                 <tr>
                   <th>Category Name</th>
 
+                  <th>Edit</th>
+
                   <th>Delete</th>
+
+                  
                 </tr>
                 @foreach($data as $item)
                 <tr>
                   <td>{{ $item->category_name }}</td>
+
                   <td>
-                    <a class="btn btn-danger" onclick="confirmation(event)" href="{{url('delete_category', $item->id)}}">Delete</a>
+                      <a class="btn btn-success" href="{{ route('edit_category', $item->id) }}">Edit</a>
                   </td>
+                  
+                  <td>
+                    <a class="btn btn-danger" onclick="confirmation(event)" href="{{ route('delete_category', $item->id)}}">Delete</a>
+                  </td>
+
+                  
                 </tr>
                 @endforeach
                 
