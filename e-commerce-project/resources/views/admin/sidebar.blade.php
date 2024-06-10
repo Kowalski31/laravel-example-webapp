@@ -22,8 +22,8 @@
             </a>
             <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
                 <li><a href="{{ route('add_product') }}">Add Product</a></li>
-                <li><a href="#">Page</a></li>
-                <li><a href="#">Page</a></li>
+                <li><a href="{{ route('view_product') }}">View Product</a></li>
+                <!-- <li><a href="#">Page</a></li> -->
             </ul>
         </li>
 
