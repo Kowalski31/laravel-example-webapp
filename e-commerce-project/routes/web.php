@@ -39,6 +39,8 @@ Route::middleware(['auth', 'admin'])->group(function() {
 
     Route::get('view_product', [AdminController::class, 'view_product'])->name('view_product');
 
+    Route::get('delete_product/{id}', [AdminController::class, 'delete_product'])->name('delete_product');
+
 });
 
 
