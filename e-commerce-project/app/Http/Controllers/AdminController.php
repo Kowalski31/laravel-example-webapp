@@ -27,7 +27,6 @@ class AdminController extends Controller
 
     }
 
-
     public function add_category(Request $request)
     {
         $category = new Category;
@@ -113,6 +112,39 @@ class AdminController extends Controller
 
         return redirect()->back();
 
+    }
+
+    public function edit_product($id)
+    {
+        $data = Product::find($id);
+        $category = Category::all();
+        return view('admin.edit_product', compact('data', 'category'));
+    }
+
+    public function update_product(Request $request, $id)
+    {
+        $data = product::find($id);
+        $data->title = $request->title;
+        $data->description = $request->description;
+        $data->price = $request->price;
+        $data->quantity = $request->quantity;
+        $data->category = $request->category;
+
+        $data->image = $request->image;
+
+        $image = $request->image;
+        if ($image){
+            $imagename = time().'.'.$image->getClientOriginalExtension(); 
+            
+            $request->image->move('products', $imagename);
+            
+            $data->image = $imagename;
+        }
+            
+        $data->save();
+        
+        toastr()->closeButton(true)->timeOut(2000)->success('Product Updated Successfully');
+        return redirect()->back();
     }
 
 }

@@ -61,13 +61,15 @@
                     <th>Image</th>  
                     
                     <th>Delete</th>
+
+                    <th>Edit</th>
                 </tr>
                 
                 @foreach($data as $item)
                 <tr>
                     <td>{{ $item->title }}</td>
 
-                    <td>{!!Str::words($item->description, 50)!!}</td>
+                    <td>{!!Str::words($item->description, 10)!!}</td>
                     
                     <td>{{ $item->category }}</td>
                     
@@ -78,10 +80,15 @@
                     <td>
                         <img height="120" width="120" src="products/{{ $item->image }}" alt="">
                     </td>
+                    
+                    <td>
+                      <a class="btn btn-success" href="{{ route('edit_product', $item->id) }}">Edit</a>
+                    </td>
 
                     <td>
                         <a class="btn btn-danger" onclick="confirmation(event)" href="{{ route('delete_product', $item->id) }}" class="btn btn-danger">Delete</a>
                     </td>
+
                 </tr>
                 @endforeach
                 

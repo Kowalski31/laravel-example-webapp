@@ -41,7 +41,10 @@ Route::middleware(['auth', 'admin'])->group(function() {
 
     Route::get('delete_product/{id}', [AdminController::class, 'delete_product'])->name('delete_product');
 
+    Route::get('edit_product/{id}', [AdminController::class, 'edit_product'])->name('edit_product');
+
+    Route::post('update_product/{id}', [AdminController::class, 'update_product'])->name('update_product');
+
 });
 
 
-// Route::post('upload')
