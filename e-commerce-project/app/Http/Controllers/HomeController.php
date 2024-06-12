@@ -13,24 +13,48 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     public function index() {
+        
         return view('admin.index');
     }
     
     public function home() {
         $product = Product::all();
-        
-        return view('home.index', compact('product'));
+
+        if(Auth::id())
+        {
+            $user = Auth::user();
+            $count = Cart::where('user_id', $user->id)->count();
+        }
+        else
+        {
+            $count = '';
+        }
+        return view('home.index', compact('product', 'count'));
     }
 
     public function login_home() {
         $product = Product::all();
+
+        $user = Auth::user();
+        $count = Cart::where('user_id', $user->id)->count();
         
-        return view('home.index', compact('product'));
+        return view('home.index', compact('product', 'count'));
     }
 
     public function product_details($id) {
         $data = Product::find($id);
-        return view('home.product_details', compact('data'));
+
+        if(Auth::id())
+        {
+            $user = Auth::user();
+            $count = Cart::where('user_id', $user->id)->count();
+        }
+        else
+        {
+            $count = '';
+        }
+
+        return view('home.product_details', compact('data', 'count'));
     }
 
     public function add_cart($id) {
