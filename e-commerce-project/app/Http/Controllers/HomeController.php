@@ -76,4 +76,29 @@ class HomeController extends Controller
 
         return redirect()->back();
     }
+
+    public function mycart(){
+
+        if(Auth::id())
+        {
+            $user = Auth::user();
+
+            $count = Cart::where('user_id', $user->id)->count();
+
+            $cart = Cart::where('user_id', $user->id)->get();
+        }
+        
+
+        return view('home.mycart', compact('count', 'cart'));
+    }
+
+    public function delete_cart($id) {
+        $data = Cart::find($id);
+
+        $data->delete();
+
+        toastr()->closeButton(true)->timeOut(2000)->warning('Product Deleted from Cart Successfully');
+
+        return redirect()->back();
+    }
 }
