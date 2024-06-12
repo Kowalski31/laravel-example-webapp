@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Cart;
+use App\Models\Order;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -100,5 +101,42 @@ class HomeController extends Controller
         toastr()->closeButton(true)->timeOut(2000)->warning('Product Deleted from Cart Successfully');
 
         return redirect()->back();
+    }
+
+    public function confirm_order(Request $request) {
+        
+        $name = $request->name;
+        $address = $request->address;
+        $phone = $request->phone;
+        $user_id = Auth::user()->id;
+        $cart = Cart::where('user_id', $user_id)->get();
+
+        foreach($cart as $data)
+        {
+            $order = new Order();
+
+            $order->user_id = $user_id;
+            $order->product_id = $data->product_id;
+
+            $order->name = $name;
+            $order->rec_address = $address;
+            $order->phone = $phone;
+
+            $order->save();
+
+        }
+        
+        $cart_remove = Cart::where('user_id', $user_id)->get();
+
+        foreach($cart_remove as $item)
+        {
+            $data = Cart::find($item->id);
+            $data->delete();
+        }
+
+
+        toastr()->closeButton(true)->timeOut(2000)->success('Order Confirmed Successfully');
+        return redirect()->back();
+        
     }
 }

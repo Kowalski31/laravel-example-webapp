@@ -13,6 +13,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('add_cart/{id}', [HomeController::class, 'add_cart'])->name('add_cart');
     Route::get('mycart', [HomeController::class, 'mycart'])->name('mycart');
     Route::get('delete_cart/{id}', [HomeController::class, 'delete_cart'])->name('delete_cart');
+    Route::post('confirm_order', [HomeController::class, 'confirm_order'])->name('confirm_order');
 });
 
 Route::get('product_details/{id}', [HomeController::class, 'product_details'])->name('product_details');
