@@ -29,6 +29,7 @@
 
           <div style="padding: 15px">
             <a class="btn btn-warning" href="{{ route('product_details', $item->id) }}">Details</a>
+            <a class="btn btn-primary" href="{{ route('add_cart', $item->id) }}">Add to Cart</a>
           </div>
         </div>
       </div>
