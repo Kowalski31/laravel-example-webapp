@@ -57,6 +57,7 @@
                     <th>Price</th>
                     <th>Image</th>
                     <th>Status</th>
+                    <th>Change Status</th>
                 </tr>
 
                 @foreach($data as $item)
@@ -70,6 +71,10 @@
                       <img style="width: 120px; height: 100px" src="/products/{{ $item->product->image }}" alt="">
                     </td>
                     <td>{{ $item->status }}</td>
+                    <td>
+                      <a class="btn btn-primary" href="url('on_the_way')">On The Way</a>
+                      <a class="btn btn-primary" href="">Delivered</a>
+                    </td>
                 </tr>
                 @endforeach
             </table>
