@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Order;
 
 class AdminController extends Controller
 {
@@ -153,6 +154,12 @@ class AdminController extends Controller
         $data = Product::where('title', 'LIKE', '%'.$search.'%')->orWhere('category', 'LIKE', '%'.$search.'%')->paginate(3);
 
         return view('admin.view_product', compact('data'));
+    }
+
+    public function view_order() 
+    {
+        $data = Order::all();
+        return view('admin.view_order', compact('data'));
     }
 
 }

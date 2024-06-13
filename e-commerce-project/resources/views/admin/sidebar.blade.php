@@ -14,7 +14,7 @@
     <span class="heading">Main</span>
     <ul class="list-unstyled">
         <li class="active"><a href="{{ route('admin.dashboard') }}"> <i class="icon-home"></i>Home </a></li>
-        <li><a href="{{ url('view_category') }}"> <i class="icon-grid"></i>Category </a></li>
+        <li><a href="{{ route('view_category') }}"> <i class="icon-grid"></i>Category </a></li>
         
         <li>
             <a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse">
@@ -27,5 +27,6 @@
             </ul>
         </li>
 
+        <li><a href="{{ route('view_order') }}"> <i class="icon-grid"></i>Orders </a></li>
     </ul>
 </nav>

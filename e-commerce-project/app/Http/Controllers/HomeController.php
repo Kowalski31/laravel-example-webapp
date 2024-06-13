@@ -123,7 +123,6 @@ class HomeController extends Controller
             $order->phone = $phone;
 
             $order->save();
-
         }
         
         $cart_remove = Cart::where('user_id', $user_id)->get();
@@ -134,9 +133,8 @@ class HomeController extends Controller
             $data->delete();
         }
 
-
         toastr()->closeButton(true)->timeOut(2000)->success('Order Confirmed Successfully');
-        return redirect()->back();
         
+        return redirect()->back();
     }
 }
