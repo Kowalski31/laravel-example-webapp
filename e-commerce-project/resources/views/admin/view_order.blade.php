@@ -70,10 +70,24 @@
                     <td>
                       <img style="width: 120px; height: 100px" src="/products/{{ $item->product->image }}" alt="">
                     </td>
-                    <td>{{ $item->status }}</td>
                     <td>
-                      <a class="btn btn-primary" href="url('on_the_way')">On The Way</a>
-                      <a class="btn btn-primary" href="">Delivered</a>
+                      @if($item->status == 'Delivered')
+                      
+                        <span style="color:skyblue;">{{ $item->status }}</span>
+                      
+                      @elseif($item->status == 'On The Way')
+                        
+                        <span style="color:yellow">{{ $item->status }}</span>
+                      
+                      @else
+                        
+                        <span style="color:red">{{ $item->status }}</span>
+                      
+                      @endif
+                    </td>
+                    <td>
+                      <a class="btn btn-primary" href="{{ url('on_the_way', $item->id) }}">On The Way</a>
+                      <a class="btn btn-success" href="{{ url('delivered', $item->id) }}">Delivered</a>
                     </td>
                 </tr>
                 @endforeach

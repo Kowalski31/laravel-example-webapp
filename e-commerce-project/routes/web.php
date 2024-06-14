@@ -44,7 +44,8 @@ Route::middleware(['auth', 'admin'])->group(function() {
     Route::get('product_search', [AdminController::class, 'product_search'])->name('product_search');
 
     Route::get('view_order', [AdminController::class, 'view_order'])->name('view_order');
-    Route::get('on_the_way', [AdminController::class, 'on_the_way']);
+    Route::get('on_the_way/{id}', [AdminController::class, 'on_the_way']);
+    Route::get('delivered/{id}', [AdminController::class, 'delivered']);
 
 });
 
