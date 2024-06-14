@@ -15,22 +15,22 @@
                     <a class="nav-link" href="{{ route('home') }}">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="shop.html">
+                    <a class="nav-link" href="#">
                         Shop
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="why.html">
+                    <a class="nav-link" href="#">
                         Why Us
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="testimonial.html">
+                    <a class="nav-link" href="#">
                         Testimonial
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact Us</a>
+                    <a class="nav-link" href="#">Contact Us</a>
                 </li>
             </ul>
 
@@ -39,7 +39,9 @@
 
                 @auth
 
-                <a href="{{ url('mycart') }}">
+                <a href="{{ url('myorders') }}">My Orders</a>
+
+                <a href="{{ route('mycart') }}">
                     <i class="fa fa-shopping-bag" aria-hidden="true"></i>
                     {{ $count }}
                 </a>
@@ -52,14 +54,14 @@
 
                 @else
 
-                <a href="{{url('/login')}}">
+                <a href="{{ url('/login') }}">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <span>
                         Login
                     </span>
                 </a>
 
-                <a href="{{url('/register')}}">
+                <a href="{{ url('/register') }}">
                     <i class="fa fa-vcard" aria-hidden="true"></i>
                     <span>
                         Register

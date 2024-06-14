@@ -14,6 +14,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('mycart', [HomeController::class, 'mycart'])->name('mycart');
     Route::get('delete_cart/{id}', [HomeController::class, 'delete_cart'])->name('delete_cart');
     Route::post('confirm_order', [HomeController::class, 'confirm_order'])->name('confirm_order');
+    Route::get('myorders', [HomeController::class, 'myorders'])->name('myorders');
 });
 
 Route::get('product_details/{id}', [HomeController::class, 'product_details'])->name('product_details');
@@ -46,7 +47,7 @@ Route::middleware(['auth', 'admin'])->group(function() {
     Route::get('view_order', [AdminController::class, 'view_order'])->name('view_order');
     Route::get('on_the_way/{id}', [AdminController::class, 'on_the_way']);
     Route::get('delivered/{id}', [AdminController::class, 'delivered']);
-
+    Route::get('print_pdf/{id}', [AdminController::class, 'print_pdf']);
 });
 
 

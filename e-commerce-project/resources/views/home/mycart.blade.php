@@ -39,7 +39,6 @@
 
         .order_deg {
             padding-right: 150px;
-            margin-top: -100px;
             margin-right: 20px;
             border: 2px solid black;
             border-radius: 10px;

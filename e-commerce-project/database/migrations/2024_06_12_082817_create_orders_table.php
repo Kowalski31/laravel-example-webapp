@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('rec_address')->nullable();
             $table->string('phone')->nullable();
+            // $table->enum('status', ['IN PROGRESS', 'ON THE WAY', 'DELIVERED'])->default('IN PROGRESS');
             $table->string('status')->default('in progress');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');

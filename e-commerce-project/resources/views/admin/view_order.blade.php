@@ -6,10 +6,9 @@
   <style type="text/css">
     table {
         font-family: Arial, sans-serif;
-        text-align: centerl;
+        text-align: center;
         align-items: center;
         border: 2px solid rgb(65, 207, 194);
-        
     }
 
     th {
@@ -58,6 +57,7 @@
                     <th>Image</th>
                     <th>Status</th>
                     <th>Change Status</th>
+                    <th>View PDF</th>
                 </tr>
 
                 @foreach($data as $item)
@@ -88,6 +88,9 @@
                     <td>
                       <a class="btn btn-primary" href="{{ url('on_the_way', $item->id) }}">On The Way</a>
                       <a class="btn btn-success" href="{{ url('delivered', $item->id) }}">Delivered</a>
+                    </td>
+                    <td>
+                      <a class="btn btn-secondary" href="{{ url('print_pdf', $item->id) }}">Print PDF</a>
                     </td>
                 </tr>
                 @endforeach

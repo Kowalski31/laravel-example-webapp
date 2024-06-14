@@ -183,5 +183,10 @@ class AdminController extends Controller
 
         return redirect('view_order');
     }
+
+    public function print_pdf($id)
+    {
+        
+    }
 }
 
