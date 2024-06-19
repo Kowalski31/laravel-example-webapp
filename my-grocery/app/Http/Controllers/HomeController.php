@@ -8,9 +8,14 @@ use App\Models\User;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function home()
     {
         $user = Auth::user();
-        return view('dashboard', compact('user'));
+        return view('home', compact('user'));
+    }
+
+    public function index()
+    {
+        return view('admin.dashboard');
     }
 }

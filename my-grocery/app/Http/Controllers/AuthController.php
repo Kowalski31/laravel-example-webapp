@@ -17,15 +17,24 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard');
+            if (Auth::user()->role == 'admin') {
+                return redirect()->route('admin.dashboard');
+            }
+
+            return redirect()->intended(route('dashboard'));
+        } else {
+            return redirect()->back()->withInput()->withErrors(['email' => 'Invalid credentials']);
         }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
     }
 
     public function showRegistrationForm()
@@ -54,7 +63,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->intended('dashboard');
+        return redirect(route('dashboard', absolute: false));
     }
 
     public function logout(Request $request)

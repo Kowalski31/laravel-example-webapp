@@ -9,6 +9,7 @@ Route::get('/', function () {
 });
 
 
+
 Route::get('login', [App\Http\Controllers\AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [App\Http\Controllers\AuthController::class, 'login']);
 
@@ -18,4 +19,9 @@ Route::post('register', [AuthController::class, 'register']);
 
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/dashboard', [HomeController::class, 'index'])->middleware('auth')->name('dashboard');
+Route::get('dashboard', [HomeController::class, 'home'])->name('dashboard');
+
+
+Route::middleware(['auth', 'admin'])->group(function() {
+    Route::get('admin.dashboard', [HomeController::class, 'index'])->name('admin.dashboard');
+});
