@@ -1,11 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+<header>
+    <div class="search">
+        <!-- Search input code here -->
+        <input type="text" placeholder="Search...">
+        <button type="submit">Search</button>
+    </div>
+    <div class="cart">
+        <!-- Cart code here -->
+        <a href="/cart">Cart</a>
+    </div>
+    <div class="profile">
+        <!-- Profile code here -->
+        <a href="/profile">Profile</a>
+    </div>
+    <div class="dark-mode-toggle">
+        <!-- Dark mode toggle code here -->
+        <label for="dark-mode-toggle">Dark Mode</label>
+        <input type="checkbox" id="dark-mode-toggle">
+    </div>
+</header>
