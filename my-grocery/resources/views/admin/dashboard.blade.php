@@ -17,7 +17,6 @@
 </head>
 <body>
     <div class="grid-container">
-        
         <!-- Header -->
         <header class="header">
             <div class="menu-icon" onclick="openSideBar()">
@@ -26,10 +25,17 @@
             <div class="header-left">
                 <span class="material-symbols-outlined">search</span>
             </div>
-            <div class="header-right">
-                <span class="material-symbols-outlined">mail</span>
-                <span class="material-symbols-outlined">notifications</span>
-                <span class="material-symbols-outlined">account_circle</span>
+            
+            <div class="">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <input type="submit" value="Logout">
+                </form>
+            </div>
+
+            <div class="card-body">
+                {{ __('You are logged in!') }}
+                <strong>Role:</strong> {{ $user->role }}
             </div>
         </header>
         <!-- End Header -->
@@ -38,43 +44,51 @@
         <aside id="sidebar">
             <div class="sidebar-title">
                 <div class="sidebar-brand">
-                    <span class="material-symbols-outlined">inventory</span>My Grocery
+                    <span class="material-symbols-outlined">storefront</span>My Grocery
                 </div>
-                <span class="material-symbols-outlined" onclick="closeSideBar()">close</span>
+                <span class="material-symbols-outlined" onclick="closeSidebar()">close</span>
             </div>
 
             <ul class="sidebar-list">
                 <li class="sidebar-list-item">
-                    <span class="material-symbols-outlined">space_dashboard</span> Dashboard
-                </li>
-                <li class="sidebar-list-item">
-                    <a href="#" target="_blank">
-                        <span class="material-symbols-outlined">inventory_2</span> Products
+                    <a href="#" class="sidebar-link" target="_blank">
+                        <span class="material-symbols-outlined">dashboard</span>Dashboard
                     </a>
                 </li>
+
                 <li class="sidebar-list-item">
-                    <a href="#" target="_blank">
-                        <span class="material-symbols-outlined">fact_check</span> Inventory
+                    <a href="#" class="sidebar-link" target="_blank">
+                        <span class="material-symbols-outlined">inventory_2</span>Products
                     </a>
                 </li>
+
                 <li class="sidebar-list-item">
-                    <a href="#" target="_blank">
-                        <span class="material-symbols-outlined">add_shopping_cart</span> Purchase Orders
+                    <a href="#" class="sidebar-link" target="_blank">
+                        <span class="material-symbols-outlined">fact_check</span>Inventory
                     </a>
                 </li>
+
                 <li class="sidebar-list-item">
-                    <a href="#" target="_blank">
-                        <span class="material-symbols-outlined">shopping_cart</span> Sales Orders
+                    <a href="#" class="sidebar-link" target="_blank">
+                        <span class="material-symbols-outlined">add_shopping_cart</span>Purchase Orders
                     </a>
                 </li>
+
                 <li class="sidebar-list-item">
-                    <a href="#" target="_blank">
-                        <span class="material-symbols-outlined">poll</span> Reports
+                    <a href="#" class="sidebar-link" target="_blank">
+                        <span class="material-symbols-outlined">shopping_cart</span>Sales Orders
                     </a>
                 </li>
+
                 <li class="sidebar-list-item">
-                    <a href="#" target="_blank">
-                        <span class="material-symbols-outlined">settings</span> Settings
+                    <a href="#" class="sidebar-link" target="_blank">
+                        <span class="material-symbols-outlined">poll</span>Reports
+                    </a>
+                </li>
+
+                <li class="sidebar-list-item">
+                    <a href="#" class="sidebar-link" target="_blank">
+                        <span class="material-symbols-outlined">settings</span>Settings
                     </a>
                 </li>
             </ul>
@@ -91,7 +105,7 @@
                 <div class="card">
                     <div class="card-inner">
                         <p class="text-primary">PRODUCTS</p>
-                        <span class="material-symbols-outlined text-blue">inventory_2</span> 
+                        <span class="material-symbols-outlined text-blue">inventory_2</span>
                     </div>
                     <span class="text-primary font-weight-bold">249</span>
                 </div>
@@ -99,7 +113,7 @@
                 <div class="card">
                     <div class="card-inner">
                         <p class="text-primary">PURCHASE ORDERS</p>
-                        <span class="material-symbols-outlined text-blue">add_shopping_cart</span> 
+                        <span class="material-symbols-outlined text-orange">add_shopping_cart</span>
                     </div>
                     <span class="text-primary font-weight-bold">83</span>
                 </div>
@@ -107,27 +121,39 @@
                 <div class="card">
                     <div class="card-inner">
                         <p class="text-primary">SALES ORDERS</p>
-                        <span class="material-symbols-outlined text-blue">shopping_cart</span> 
+                        <span class="material-symbols-outlined text-green">shopping_cart</span>
                     </div>
                     <span class="text-primary font-weight-bold">79</span>
                 </div>
 
                 <div class="card">
                     <div class="card-inner">
-                        <p class="text-primary">INVENTORY ALERT</p>
-                        <span class="material-symbols-outlined text-blue">notification_important</span> 
+                        <p class="text-primary">INVENTORY ALERTS</p>
+                        <span class="material-symbols-outlined text-red">notification_important</span>
                     </div>
                     <span class="text-primary font-weight-bold">56</span>
                 </div>
             </div>
+
+            <div class="charts">
+                <div class="charts-card">
+                    <p class="chart-title">Top 5 Products</p>
+                    <div id="bar-chart"></div>
+                </div>
+
+                <div class="charts-card">
+                    <p class="chart-title">Purchase and Sales Orders</p>
+                    <div id="area-chart"></div>
+                </div>
+            </div>
         </main>
         <!-- End Main -->
-
     </div>
 
     
-
-
+    <!-- Scripts -->
+    <!-- ApexCharts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.49.2/apexcharts.min.js" integrity="sha512-3BIgFs7OIA76S6nx4QMAiSPlGXgCN+eITFIY6q0q0sFPxkuVzVXy0Vp/yQfXP3wyf+DmRpHRzEw3fQc/yrhk4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
