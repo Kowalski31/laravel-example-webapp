@@ -17,36 +17,15 @@
 </head>
 <body>
     <div class="grid-container">
-        <!-- Header -->
-        <header class="header">
-            <div class="menu-icon" onclick="openSideBar()">
-                <span class="material-symbols-outlined">menu</span>
-            </div>
-            <div class="header-left">
-                <span class="material-symbols-outlined">search</span>
-            </div>
-            
-            <div class="">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <input type="submit" value="Logout">
-                </form>
-            </div>
-
-            <div class="card-body">
-                {{ __('You are logged in!') }}
-                <strong>Role:</strong> {{ $user->role }}
-            </div>
-        </header>
-        <!-- End Header -->
-
+        
+        @include('admin.header')
         <!-- Sidebar -->
         <aside id="sidebar">
             <div class="sidebar-title">
                 <div class="sidebar-brand">
-                    <span class="material-symbols-outlined">storefront</span>My Grocery
+                    <span class="material-symbols-outlined" onclick="toggleSidebar()">menu</span>
+                    <span class="material-symbols-outlined">storefront</span> My Grocery
                 </div>
-                <span class="material-symbols-outlined" onclick="closeSidebar()">close</span>
             </div>
 
             <ul class="sidebar-list">
@@ -64,7 +43,7 @@
 
                 <li class="sidebar-list-item">
                     <a href="#" class="sidebar-link" target="_blank">
-                        <span class="material-symbols-outlined">fact_check</span>Inventory
+                        <span class="material-symbols-outlined">fact_check</span>Category
                     </a>
                 </li>
 

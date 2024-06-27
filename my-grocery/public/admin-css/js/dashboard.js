@@ -3,6 +3,10 @@
 var sidebarOpen = false;
 var sidebar = document.getElementById('sidebar');
 
+function toggleSideBar() {
+  sidebar.classList.toggle('active');
+}
+
 function openSideBar() {
     if (!sidebarOpen) {
         sidebar.classList.add("sidebar-responsive");
