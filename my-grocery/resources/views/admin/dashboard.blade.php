@@ -3,81 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.49.2/apexcharts.min.css" integrity="sha512-YEwcgX5JXVXKtpXI4oXqJ7GN9BMIWq1rFa+VWra73CVrKds7s+KcOfHz5mKzddIOLKWtuDr0FzlTe7LWZ3MTXw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <!-- Montserrat Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
     <!-- Material Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
-    <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/admin.css') }}" rel="stylesheet">
+    <title>Admin Dashboard</title>
 </head>
 <body>
-    <div class="grid-container">
-        
-        @include('admin.header')
-        <!-- Sidebar -->
-        <aside id="sidebar">
-            <div class="sidebar-title">
-                <div class="sidebar-brand">
-                    <span class="material-symbols-outlined" onclick="toggleSidebar()">menu</span>
-                    <span class="material-symbols-outlined">storefront</span> My Grocery
+    <header class="header">
+        <div class="logo">
+            <i class="bx bxl-codepen"></i>
+            <span>Kowalski Grocery</span>
+        </div>
+
+        <div class="search">
+            <i class='bx bx-search' ></i>
+            <input type="text" class="search-bar" placeholder="Search...">
+        </div>
+
+        <div class="notification-logo">
+            <i class='bx bx-bell'></i>
+        </div>
+    </header>
+
+    <div class="main-body">
+    <!-- Start Sidebar -->
+        <aside class="sidebar">
+            <div class="top">
+                <i class="bx bx-menu" id="btn"></i>
+            </div>
+            
+            <div class="user">
+                <img src="{{ asset('avaa.jfif') }}" alt="me" class="user-image">
+                <div>
+                    <p class="bold">Kowalski</p>
+                    <p>Admin</p>
                 </div>
             </div>
 
-            <ul class="sidebar-list">
-                <li class="sidebar-list-item">
-                    <a href="#" class="sidebar-link" target="_blank">
-                        <span class="material-symbols-outlined">dashboard</span>Dashboard
+            <ul>
+                <li>
+                    <a href="{{ route('admin.dashboard') }}">
+                        <i class="bx bxs-grid-alt"></i>
+                        <span class="nav-item">Dashboard</span>
                     </a>
+                    <!-- <span class="tooltip">Dashboard</span> -->
                 </li>
 
-                <li class="sidebar-list-item">
-                    <a href="#" class="sidebar-link" target="_blank">
-                        <span class="material-symbols-outlined">inventory_2</span>Products
+                <li>
+                    <a href="#">
+                        <i class="bx bxs-shopping-bag"></i>
+                        <span class="nav-item">Products</span>
                     </a>
+                    <!-- <span class="tooltip">Products</span> -->
                 </li>
 
-                <li class="sidebar-list-item">
-                    <a href="#" class="sidebar-link" target="_blank">
-                        <span class="material-symbols-outlined">fact_check</span>Category
+                <li>
+                    <a href="#">
+                        <i class="bx bx-list-check"></i>
+                        <span class="nav-item">Categories</span>
                     </a>
+                    <!-- <span class="tooltip">Categories</span> -->
                 </li>
 
-                <li class="sidebar-list-item">
-                    <a href="#" class="sidebar-link" target="_blank">
-                        <span class="material-symbols-outlined">add_shopping_cart</span>Purchase Orders
+                <li>
+                    <a href="#">
+                        <i class="bx bxs-food-menu"></i>
+                        <span class="nav-item">Orders</span>
                     </a>
+                    <!-- <span class="tooltip">Orders</span> -->
                 </li>
 
-                <li class="sidebar-list-item">
-                    <a href="#" class="sidebar-link" target="_blank">
-                        <span class="material-symbols-outlined">shopping_cart</span>Sales Orders
+                <li>
+                    <a href="#">
+                        <i class="bx bx-body"></i>
+                        <span class="nav-item">Customers</span>
                     </a>
+                    <!-- <span class="tooltip">Customers</span> -->
                 </li>
 
-                <li class="sidebar-list-item">
-                    <a href="#" class="sidebar-link" target="_blank">
-                        <span class="material-symbols-outlined">poll</span>Reports
+                <li>
+                    <a href="#">
+                        <i class="bx bx-location-plus"></i>
+                        <span class="nav-item">Shipping</span>
                     </a>
+                    <!-- <span class="tooltip">Shipping</span> -->
                 </li>
 
-                <li class="sidebar-list-item">
-                    <a href="#" class="sidebar-link" target="_blank">
-                        <span class="material-symbols-outlined">settings</span>Settings
+                <li>
+                    <a href="#">
+                        <i class="bx bx-cog"></i>
+                        <span class="nav-item">Settings</span>
                     </a>
+                    <!-- <span class="tooltip">Settings</span> -->
+                </li>
+
+                <li>
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <i class="bx bx-log-out"></i>
+                        <span class="nav-item">Logout</span>
+                    </a>
+                    <!-- <span class="tooltip">Logout</span> -->
                 </li>
             </ul>
         </aside>
         <!-- End Sidebar -->
 
-        <!-- Main -->
-        <main class="main-container">
+    
+        <!-- Start Main -->
+        <div class="main-content">
             <div class="main-title">
-                <p class="font-weight-bold">DASHBOARD</p>
+                <p class="font-weight-bold">Dashboard</p>
             </div>
 
             <div class="main-cards">
@@ -125,19 +169,16 @@
                     <div id="area-chart"></div>
                 </div>
             </div>
-        </main>
+        </div>
         <!-- End Main -->
-    </div>
+        
+
+    <script src="{{ asset('admin-css/js/index.js') }}"></script>
 
     
-    <!-- Scripts -->
     <!-- ApexCharts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.49.2/apexcharts.min.js" integrity="sha512-3BIgFs7OIA76S6nx4QMAiSPlGXgCN+eITFIY6q0q0sFPxkuVzVXy0Vp/yQfXP3wyf+DmRpHRzEw3fQc/yrhk4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="{{ asset('admin-css/js/dashboard.js') }}"></script>
 </body>
-</html>
 
+
+</html>
