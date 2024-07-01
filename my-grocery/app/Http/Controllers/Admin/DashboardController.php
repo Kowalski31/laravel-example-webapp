@@ -14,8 +14,8 @@ class DashboardController extends Controller
         return view('admin.dashboard', compact('user'));
     }
 
-    public function demo()
+    public function categories()
     {
-        return view('admin.index');
+        return view('admin.categories');
     }
 }

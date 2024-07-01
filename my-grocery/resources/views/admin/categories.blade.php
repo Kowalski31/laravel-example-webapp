@@ -21,7 +21,7 @@
         @include('admin.sidebar')
 
         <div class="main-content">
-            @include('admin.body')
+            <h1 style="color: white">Categories</h1>
         </div>
     </div>
         

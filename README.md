@@ -3,19 +3,18 @@
 
 - login, register, role (admin, user)
 - dung trang admin dashboard
-    + header
+    + header (check)
         + avatar
         + search bar
         + cart 
         
-    + sidebar
+    + sidebar (check)
         + Category
         + Product 
         + Order   
     
-        
 
-    - dashboard
+    - dashboard (check)
         + display total orders, users, products, 
     
     - category:
