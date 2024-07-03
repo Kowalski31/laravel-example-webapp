@@ -27,8 +27,22 @@ Route::middleware(['auth', 'verified'])->group(function() {
 Route::middleware(['auth', 'admin'])->group(function() {
     Route::prefix('admin')->group(function() {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-        Route::get('category', [DashboardController::class, 'view_category'])->name('category');
-        Route::post('add_category', [DashboardController::class, 'add_category'])->name('add_category');
+
+        Route::prefix('category')->group(function(){
+            Route::get('/', [DashboardController::class, 'view_category'])->name('category');
+            Route::post('add', [DashboardController::class, 'add_category'])->name('add_category');
+            Route::get('edit/{id}', [DashboardController::class, 'edit_category'])->name('edit_category');
+            Route::post('update/{id}', [DashboardController::class, 'update_category'])->name('update_category');
+            Route::get('delete/{id}', [DashboardController::class, 'delete_category'])->name('delete_category');
+
+        });
+
+        Route::prefix('product')->group(function(){
+            Route::get('/', [DashboardController::class, 'view_product'])->name('product');
+            Route::post('add', [DashboardController::class, 'add_product'])->name('add_product');
+
+        });
+        
     });
     
 });

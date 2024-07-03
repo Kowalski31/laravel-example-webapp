@@ -24,11 +24,26 @@ class DashboardController extends Controller
     }
 
     public function add_category(Request $request){
-
-
         $category = new Category();
         $category->name = $request->name;
         $category->save();
-        return redirect()->back()->with('success', 'Category added successfully');
+
+        toastr()->closeButton(true)->timeOut(2000)->success('Category added successfully');
+        return redirect()->back();
+    }
+
+    public function delete_category($id){
+
+        $category = Category::find($id);
+        $category->delete();
+        
+        toastr()->closeButton(true)->timeOut(2000)->error('Category deleted successfully');
+        return redirect()->back();
+    }
+
+
+    public function view_product()
+    {
+        return view('admin.product');
     }
 }

@@ -161,7 +161,7 @@
 /* main start */
 .main-content {
     position: relative;
-    background-color: #f0d4d4; /* #0b1727  #12171e*/
+    background-color: #b99b9b; /* #0b1727  #12171e*/
     transition: all 0.5s ease;
     width: calc(100% - 80px);
     padding: 20px

@@ -6,7 +6,7 @@
     </div>
 
     <div class="search">
-        <i class='bx bx-search' ></i>
+        <i class='bx bx-search'></i>
         <input type="text" class="search-bar" placeholder="Search...">
     </div>
 

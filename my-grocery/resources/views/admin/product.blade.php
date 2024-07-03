@@ -27,7 +27,7 @@
         @include('admin.sidebar')
 
         <div class="main-content p-3">
-            @include('admin.body')
+            <h1>Product</h1>
         </div>
     </div>
 
@@ -38,7 +38,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.49.2/apexcharts.min.js"
         integrity="sha512-3BIgFs7OIA76S6nx4QMAiSPlGXgCN+eITFIY6q0q0sFPxkuVzVXy0Vp/yQfXP3wyf+DmRpHRzEw3fQc/yrhk4w=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+
 </body>
-
-
 </html>

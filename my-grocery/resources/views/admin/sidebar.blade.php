@@ -1,6 +1,6 @@
 <!-- Start Sidebar -->
 <aside class="sidebar">
-            
+
     <div class="user  align-items-center p-3 border-top border-bottom">
         <img src="{{ asset('avaa.jfif') }}" alt="me" class="rounded-circle me-2" style="width: 50px; height: 50px;">
         <div>
@@ -17,7 +17,7 @@
             </a>
         </li>
         <li class="">
-            <a href="#" class="d-flex align-items-center">
+            <a href="{{ route('product') }}" class="d-flex align-items-center">
                 <i class="bx bxs-shopping-bag me-2"></i>
                 <span>Products</span>
             </a>
@@ -53,7 +53,8 @@
             </a>
         </li>
         <li class="">
-            <a href="{{ route('logout') }}" class="d-flex align-items-center" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <a href="{{ route('logout') }}" class="d-flex align-items-center"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
