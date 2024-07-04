@@ -41,6 +41,14 @@ class DashboardController extends Controller
         return redirect()->back();
     }
 
+    public function update_category(Request $request, $id){
+        $category = Category::find($id);
+        $category->name = $request->name;
+        $category->save();
+        
+        toastr()->closeButton(true)->timeOut(2000)->success('Category updated successfully');
+        return redirect()->route('category');
+    }
 
     public function view_product()
     {

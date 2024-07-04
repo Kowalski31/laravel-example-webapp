@@ -16,7 +16,7 @@
     display: flex;
     height: 80px;
     width: 100%;
-    background-color: #12171e;
+    background-color: #0e1428;
     color: #fff;
     align-items: center;
 }
@@ -82,7 +82,7 @@
   height: 91vh;
   width: 250px;
 
-  background-color: #12171e;
+  background-color: #f18805; /* #12171e */
   padding: 0.4rem 0.8rem;
   transition: all 0.5s ease;
 }
@@ -161,7 +161,7 @@
 /* main start */
 .main-content {
     position: relative;
-    background-color: #b99b9b; /* #0b1727  #12171e*/
+    background-color: #d95d39; /* #0b1727  #12171e*/
     transition: all 0.5s ease;
     width: calc(100% - 80px);
     padding: 20px
