@@ -50,6 +50,8 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'phone' => 'required|string|max:15',
             'address' => 'required|string|max:255',
+            'gender' => 'required|string|in:male,female,others'
+            
         ]);
 
         $user = User::create([
