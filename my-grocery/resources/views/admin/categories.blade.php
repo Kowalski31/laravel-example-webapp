@@ -50,7 +50,7 @@
                     </div>
                 </form>
 
-                <table class="table table-hover">
+                <table class="table table-hover ">
                     <thead class="table-warning">
                         <tr>
                             <th scope="col">ID</th>

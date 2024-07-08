@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Category;
+use App\Models\Product;
 
 
 class DashboardController extends Controller
@@ -52,6 +53,20 @@ class DashboardController extends Controller
 
     public function view_product()
     {
-        return view('admin.product');
+        $data = Category::all();
+        $products = Product::all();
+        return view('admin.product', compact('data', 'products'));
+    }
+
+    public function add_product(Request $request) {
+        $product = new Product();
+        $product->title = $request->title;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->quantity = $request->quantity;
+        $product->save();
+
+        toastr()->closeButton(true)->timeOut(2000)->success('Product added successfully');
+        return redirect()->back();
     }
 }

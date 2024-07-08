@@ -132,12 +132,12 @@
 
 
                             <div class="form-group row">
-                                {{-- upload profile picture --}}
+                                <!-- upload profile picture -->
                                 <label for="profile_picture"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Profile Picture') }}</label>
                                 <div class="col-md-6">
                                     <input type="file" name="profile_picture" id="profile_picture"
-                                        class="form-control @error('profile_picture') is-invalid @enderror"
+                                        class="@error('profile_picture') is-invalid @enderror"
                                         value="{{ old('profile_picture') }}" autocomplete="profile_picture">
                                     @error('profile_picture')
                                         <span class="invalid-feedback" role="alert">
@@ -146,7 +146,6 @@
                                     @enderror
 
                                 </div>
-
                             </div>
 
                             <div class="form-group row mb-0">

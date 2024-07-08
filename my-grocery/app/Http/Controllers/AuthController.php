@@ -49,8 +49,9 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'phone' => 'required|string|max:15',
-            'address' => 'required|string|max:255',
-            'gender' => 'required|string|in:male,female,others'
+            'address' => 'nullable|string|max:255',
+            'gender' => 'required|string|in:male,female,others',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
             
         ]);
 
@@ -63,7 +64,7 @@ class AuthController extends Controller
             'gender' => $request->gender,
             'role' => 'user', 
             'is_active' => true,
-            
+            'avatar' => $request->profile_picture,
         ]);
 
         Auth::login($user);
