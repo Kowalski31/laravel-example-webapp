@@ -5,7 +5,7 @@
         <img src="{{ asset('avaa.jfif') }}" alt="me" class="rounded-circle me-2" style="width: 50px; height: 50px;">
         <div>
             <p class="fw-bold mb-0">Kowalski</p>
-            <p class="text-muted mb-0">Admin</p>
+            <p class="text-info mb-0">Admin</p>
         </div>
     </div>
 

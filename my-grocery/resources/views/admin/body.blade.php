@@ -8,7 +8,7 @@
             <p class="text-primary">PRODUCTS</p>
             <span class="material-symbols-outlined text-blue">inventory_2</span>
         </div>
-        <span class="text-primary font-weight-bold">249</span>
+        <span class="text-primary font-weight-bold">{{ $product }}</span>
     </div>
 
     <div class="card">

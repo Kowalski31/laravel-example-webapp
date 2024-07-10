@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product_picture extends Model
 {
+    protected $fillable = ['link'];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
     use HasFactory;
 }
