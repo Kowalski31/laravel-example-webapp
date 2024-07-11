@@ -14,9 +14,9 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::middleware(['auth', 'verified'])->group(function() {
 
@@ -43,7 +43,9 @@ Route::middleware(['auth', 'admin'])->group(function() {
             Route::get('/', [DashboardController::class, 'view_product'])->name('product');
             Route::post('add', [DashboardController::class, 'add_product'])->name('add_product');
             Route::post('edit/{id}', [DashboardController::class, 'edit_product'])->name('edit_product');
+            Route::post('update/{id}', [DashboardController::class, 'update_product'])->name('update_product');
             Route::get('delete/{id}', [DashboardController::class, 'delete_product'])->name('delete_product');
+            
         });
         
     });

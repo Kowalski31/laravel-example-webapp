@@ -58,7 +58,7 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="addProductForm" method="post" action="{{ route('add_product') }}">
+                            <form id="addProductForm" method="post" action="{{ route('add_product') }} " enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Title</label>
@@ -77,6 +77,21 @@
                                     <label for="quantity" class="form-label">Quantity</label>
                                     <input type="number" class="form-control" id="quantity" name="quantity" required>
                                 </div>
+
+                                <div class="mb-3">
+                                    <label for="category" class="form-label">Category</label>
+                                    <select class="form-control" id="category" name="categories[]" multiple required>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="images" class="form-label">Product Images</label>
+                                    <input type="file" class="form-control" id="images" name="images[]" multiple required>
+                                </div>
+
                                 <button type="submit" class="btn btn-primary ">Add Product</button>
                             </form>
                         </div>
@@ -90,13 +105,14 @@
                 <table class="table table-hover ">
                     <thead class="table-primary">
                         <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Edit</th>
-                            <th scope="col">Delete</th>
+                            <th scope="">ID</th>
+                            <th scope="">Title</th>
+                            <th scope="">Description</th>
+                            <th scope="">Price</th>
+                            <th scope="">Quantity</th>
+                            <th scope="">Category</th>
+                            <th scope="">Edit</th>
+                            <th scope="">Delete</th>
                         </tr>
                     </thead>
 
@@ -108,6 +124,12 @@
                                 <td scope="col-2">{{ $item->description }}</td>
                                 <td scope="col-2">{{ $item->price }}</td>
                                 <td scope="col-2">{{ $item->quantity }}</td>
+                                <td scope="col-2">
+                                    @foreach($item->categories as $category)
+                                        <li>{{ $category->name }}</li>
+                                    @endforeach
+                                </td>
+
 
                                 <td>
                                     <button type="button" class="btn btn-secondary custom-btn " data-bs-toggle="modal"
@@ -154,8 +176,6 @@
                                                             name="quantity" value="{{ $item->quantity }}" required>
                                                     </div>
 
-                                                    
-
                                                     <div class="mb-3">
                                                         <label for="category" class="form-label">Category</label>
                                                         <select class="form-control" id="category" name="categories[]" multiple required>
@@ -172,20 +192,17 @@
                                                         <input type="file" class="form-control" id="images" name="images[]" multiple>
                                                     </div>
 
-                                                    <button type="submit" class="btn btn-primary ">Edit
-                                                        Product</button>
+                                                    <button type="submit" class="btn btn-primary ">Edit Product</button>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- End Edit Modal -->
 
-                                <!-- End Modal -->
                                 <td>
-                                    <button type="button" class="btn btn-danger custom-btn" data-bs-toggle="modal"
-                                        data-bs-target="#deleteProductModal">
-                                        Delete
-                                    </button>
+                                    <a class="btn btn-danger custom-btn" onclick="confirmation(event)"
+                                        href="{{ route('delete_product', $item->id) }}">Delete</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -206,7 +223,7 @@
         integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    
+    <script src="{{ asset('admin-css/js/category.js') }}"></script>
 </body>
 
 </html>
