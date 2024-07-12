@@ -27,7 +27,12 @@
     <style>
         .custom-btn {
             border-radius: 40px;
-            /* Bo tròn góc */
+        }
+
+        .image-preview {
+            width: 100px;
+            height: 100px;
+            object-fit: fill;
         }
     </style>
 </head>
@@ -50,8 +55,8 @@
             <!-- Modal -->
             <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content ">
                         <div class="modal-header bg-info">
                             <h5 class="modal-title position-absolute" id="addProductModalLabel">Add Product</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -89,8 +94,10 @@
 
                                 <div class="mb-3">
                                     <label for="images" class="form-label">Product Images</label>
-                                    <input type="file" class="form-control" id="images" name="images[]" multiple required>
+                                    <input type="file" class="form-control" id="images" name="images[]" multiple>
                                 </div>
+
+                                <div class="row" id="image-preview"></div>
 
                                 <button type="submit" class="btn btn-primary ">Add Product</button>
                             </form>
@@ -105,20 +112,21 @@
                 <table class="table table-hover ">
                     <thead class="table-primary">
                         <tr>
-                            <th scope="">ID</th>
-                            <th scope="">Title</th>
-                            <th scope="">Description</th>
-                            <th scope="">Price</th>
-                            <th scope="">Quantity</th>
-                            <th scope="">Category</th>
-                            <th scope="">Edit</th>
-                            <th scope="">Delete</th>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Category</th>
+                            <th class="text-center">Gallery</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         @foreach ($products as $item)
-                            <tr>
+                            <tr class="">
                                 <td scope="col-2">{{ $item->id }}</td>
                                 <td scope="col-2">{{ $item->title }}</td>
                                 <td scope="col-2">{{ $item->description }}</td>
@@ -130,6 +138,17 @@
                                     @endforeach
                                 </td>
 
+                                <td scope="col-2">
+                                    <div class="row d-flex justify-content-evenly">
+                                        @foreach($item->pictures as $image)
+                                            {{-- {{dd($image)}} --}}
+                                            <div class="col-md-3 mb-3 ">
+                                                <img src="{{ asset('images/' . $image->link) }}"
+                                                    class="card-img-top image-preview" alt="Image Preview">
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </td>
 
                                 <td>
                                     <button type="button" class="btn btn-secondary custom-btn " data-bs-toggle="modal"
@@ -141,7 +160,7 @@
                                 <!-- Edit Product Modal -->
                                 <div class="modal fade " id="editProductModal-{{ $item->id }}" tabindex="-1"
                                     aria-labelledby="editProductModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered ">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header bg-warning">
                                                 <h5 class="modal-title position-absolute" id="editProductModalLabel">
@@ -192,6 +211,8 @@
                                                         <input type="file" class="form-control" id="images" name="images[]" multiple>
                                                     </div>
 
+
+
                                                     <button type="submit" class="btn btn-primary ">Edit Product</button>
                                                 </form>
                                             </div>
@@ -224,6 +245,44 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="{{ asset('admin-css/js/category.js') }}"></script>
+
+    <script>
+        document.getElementById('images').addEventListener('change', function(event) {
+            const files = event.target.files;
+            const previewContainer = document.getElementById('image-preview');
+            previewContainer.innerHTML = ''; // Clear the previous images
+
+            Array.from(files).forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const col = document.createElement('div');
+                    col.classList.add('col-md-3', 'mb-3');
+                    col.innerHTML = `
+                        <div class="card">
+                            <img src="${e.target.result}" class="card-img-top image-preview" alt="Image Preview">
+                            <div class="card-body text-center">
+                                <button type="button" class="btn btn-danger btn-sm remove-image" data-index="${index}">Delete</button>
+                            </div>
+                        </div>
+                    `;
+                    previewContainer.appendChild(col);
+
+                    // Re-bind the delete button event
+                    col.querySelector('.remove-image').addEventListener('click', function() {
+                        const dt = new DataTransfer();
+                        Array.from(files).forEach((file, i) => {
+                            if (i != index) {
+                                dt.items.add(file);
+                            }
+                        });
+                        document.getElementById('images').files = dt.files;
+                        col.remove();
+                    });
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+    </script>
 </body>
 
 </html>

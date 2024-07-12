@@ -58,7 +58,6 @@ class DashboardController extends Controller
         $categories = Category::all();
         $products = Product::all();
 
-
         return view('admin.product', compact('categories', 'products'));
     }
 
@@ -101,7 +100,6 @@ class DashboardController extends Controller
         $product_target->quantity = $request->quantity;
         $product_target->save();
 
-        
         $product_target->categories()->sync($request->categories);
 
 

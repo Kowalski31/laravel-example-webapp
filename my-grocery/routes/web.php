@@ -14,17 +14,17 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::prefix('dashboard')->group(function() {
         Route::get('/', [HomeController::class, 'home'])->name('dashboard');
     });
-    
-    
+
+
 });
 
 Route::middleware(['auth', 'admin'])->group(function() {
@@ -45,9 +45,9 @@ Route::middleware(['auth', 'admin'])->group(function() {
             Route::post('edit/{id}', [DashboardController::class, 'edit_product'])->name('edit_product');
             Route::post('update/{id}', [DashboardController::class, 'update_product'])->name('update_product');
             Route::get('delete/{id}', [DashboardController::class, 'delete_product'])->name('delete_product');
-            
+
         });
-        
+
     });
-    
+
 });
