@@ -17,7 +17,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        
+
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
@@ -52,7 +52,7 @@ class AuthController extends Controller
             'address' => 'nullable|string|max:255',
             'gender' => 'required|string|in:male,female,others',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
-            
+
         ]);
 
         $user = User::create([
@@ -62,7 +62,7 @@ class AuthController extends Controller
             'phone' => $request->phone,
             'address' => $request->address,
             'gender' => $request->gender,
-            'role' => 'user', 
+            'role' => 'user',
             'is_active' => true,
             'avatar' => $request->profile_picture,
         ]);

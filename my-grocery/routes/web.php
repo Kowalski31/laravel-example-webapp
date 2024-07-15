@@ -14,14 +14,12 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 
 Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::prefix('dashboard')->group(function() {
-        Route::get('/', [HomeController::class, 'home'])->name('dashboard');
+        Route::get('/{id?}', [HomeController::class, 'home'])->name('dashboard');
     });
 
 
