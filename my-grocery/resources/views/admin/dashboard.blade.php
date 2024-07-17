@@ -31,6 +31,7 @@
         </div>
     </div>
 
+    {{dd($user)}}
 
     <script src="{{ asset('admin-css/js/index.js') }}"></script>
 

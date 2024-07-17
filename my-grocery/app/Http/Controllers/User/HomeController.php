@@ -12,20 +12,21 @@ use App\Models\Category;
 
 class HomeController extends Controller
 {
-    public function home($id = null)
-    {
-        $users = Auth::user();
-        $products = Product::all();
-        $categories = Category::all();
-
-        return view('home.home', compact('users', 'products', 'categories'));
-    }
 
     public function welcome()
     {
-        $users = Auth::user();
+        $user = Auth::user();
         $products = Product::all();
         $categories = Category::all();
-        return view('welcome', compact('users', 'products', 'categories'));
+        return view('welcome', compact('user', 'products', 'categories'));
+    }
+
+    public function product_detail($id)
+    {
+        // dd($id);
+        $user = Auth::user();
+        $product = Product::find($id);
+        $categories = Category::all();
+        return view('home.product_detail', compact('user', 'product', 'categories'));
     }
 }

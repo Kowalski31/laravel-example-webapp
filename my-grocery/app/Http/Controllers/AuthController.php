@@ -25,12 +25,14 @@ class AuthController extends Controller
 
         $credentials = $request->only('email', 'password');
 
+        // $request->authenticate();
+        $request->session()->regenerate();
         if (Auth::attempt($credentials)) {
             if (Auth::user()->role == 'admin') {
                 return redirect()->route('admin.dashboard');
             }
 
-            return redirect()->intended(route('dashboard'));
+            return redirect()->intended(route('welcome'));
         } else {
             return redirect()->back()->withInput()->withErrors(['email' => 'Invalid credentials']);
         }
@@ -69,7 +71,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('welcome', absolute: false));
     }
 
     public function logout(Request $request)

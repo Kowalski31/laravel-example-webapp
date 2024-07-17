@@ -16,14 +16,9 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 
-Route::middleware(['auth', 'verified'])->group(function() {
 
-    Route::prefix('dashboard')->group(function() {
-        Route::get('/{id?}', [HomeController::class, 'home'])->name('dashboard');
-    });
+Route::get('/product_detail/{id}', [HomeController::class, 'product_detail'])->name('product_detail');
 
-
-});
 
 Route::middleware(['auth', 'admin'])->group(function() {
     Route::prefix('admin')->group(function() {
