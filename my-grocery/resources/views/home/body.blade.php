@@ -11,14 +11,22 @@
         @foreach ($products as $product)
             <div class="col-md-3 mb-4">
                 <div class="card h-100 product-card" data-product-id="{{ $product->id }}">
-                    <div class="card-img-top-wrapper"> <img src="./images/{{ $product->pictures->first() ? $product->pictures->first()->link : 'temp.png' }}"
+                    <div class="card-img-top-wrapper">
+                        <img src="./images/{{ $product->pictures->first() ? $product->pictures->first()->link : 'temp.png' }}"
                             class="card-img-top" alt="{{ $product->title }}">
                     </div>
 
                     <div class="card-body">
                         <h5 class="card-title">{{ $product->title }}</h5>
                         <p class="card-text">${{ $product->price }}</p>
-                        <a href="#" class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                        <form action="{{ route('add_cart', $product->id) }}" method="POST">
+                            @csrf
+                            <div class="input-group mb-3">
+
+                                <button class="btn btn-primary" type="submit">Add to Cart</button>
+                            </div>
+                            
+                        </form>
 
                     </div>
                 </div>

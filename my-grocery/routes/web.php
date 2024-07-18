@@ -18,6 +18,7 @@ Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 
 
 Route::get('/product_detail/{id}', [HomeController::class, 'product_detail'])->name('product_detail');
+Route::post('add_cart/{id}', [HomeController::class, 'add_cart'])->name('add_cart');
 
 
 Route::middleware(['auth', 'admin'])->group(function() {

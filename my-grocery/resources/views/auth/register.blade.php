@@ -3,17 +3,17 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+            <div class="col-md-6">
+                <div class="card mt-5">
+                    <div class="card-header text-center fs-3">{{ __('Register') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
 
-                            <div class="form-group row">
+                            <div class="form-group row mb-3">
                                 <label for="name"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text"
@@ -28,9 +28,9 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            <div class="form-group row mb-3">
                                 <label for="email"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">{{ __('E-Mail Address') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email"
@@ -45,9 +45,9 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            <div class="form-group row mb-3">
                                 <label for="password"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password"
@@ -62,9 +62,9 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            <div class="form-group row mb-3">
                                 <label for="password-confirm"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
@@ -72,9 +72,9 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            <div class="form-group row mb-3">
                                 <label for="phone"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Phone') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="phone" type="text"
@@ -89,9 +89,9 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            <div class="form-group row mb-3">
                                 <label for="address"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="address" type="text"
@@ -106,9 +106,9 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            <div class="form-group row mb-3">
                                 <label for="gender"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Gender') }}</label>
 
                                 <div class="col-md-6">
                                     <select id="gender" class="form-control @error('gender') is-invalid @enderror"
@@ -131,10 +131,10 @@
                             </div>
 
 
-                            <div class="form-group row">
+                            <div class="form-group row mb-3">
                                 <!-- upload profile picture -->
                                 <label for="profile_picture"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Profile Picture') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Profile Picture') }}</label>
                                 <div class="col-md-6">
                                     <input type="file" name="profile_picture" id="profile_picture"
                                         class="@error('profile_picture') is-invalid @enderror"

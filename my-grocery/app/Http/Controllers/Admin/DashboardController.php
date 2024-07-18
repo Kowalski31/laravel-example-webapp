@@ -72,10 +72,10 @@ class DashboardController extends Controller
         // Lưu product categories
         $product->categories()->sync($request->categories);
 
-        // Xử lý ảnh sản phẩm
+
         $images = $request->images;
         if(!empty($images)) {
-            // Lưu ảnh vào cơ sở dữ liệu
+            
             foreach ($images as $image) {
                 $name = time() . '-' . $image->getClientOriginalName();
                 $image->move(public_path('images'), $name);
@@ -142,8 +142,5 @@ class DashboardController extends Controller
         return redirect()->back();
     }
 
-    // public function update_product(Request $request, $id)
-    // {
 
-    // }
 }

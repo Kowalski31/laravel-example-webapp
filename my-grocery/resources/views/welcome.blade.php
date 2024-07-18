@@ -19,7 +19,7 @@
 
     <!-- Navigation -->
     @include('home.nav')
-
+    
     <!-- Body -->
     @include('home.body')
 

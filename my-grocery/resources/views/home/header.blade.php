@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row py-2 align-items-center">
             <div class="col-md-6">
-                <a href="#" class="navbar-brand">Logo</a>
+                <a href="{{ route('welcome') }}" class="navbar-brand">Logo</a>
             </div>
             <div class="col-md-6 text-end d-flex align-items-center ">
                 <span class="me-3 ms-auto">
@@ -11,7 +11,7 @@
                     Call 1300 000 XXX
 
                 </span>
-                
+
                 <!-- User Profile Dropdown -->
                 @if ($user)
                     <div class="dropdown">
