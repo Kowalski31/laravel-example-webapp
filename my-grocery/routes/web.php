@@ -16,10 +16,18 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 
+Route::middleware(['auth'])->group(function(){
+    Route::prefix('checkout')->group(function(){
+        Route::get('/', [HomeController::class, 'checkout'])->name('checkout');
+    });
+
+    Route::prefix('cart')->group(function(){
+        Route::get('/', [HomeController::class, 'cart'])->name('cart');
+        Route::post('add/{id}', [HomeController::class, 'add_cart'])->name('add_cart');
+    });
+});
 
 Route::get('/product_detail/{id}', [HomeController::class, 'product_detail'])->name('product_detail');
-Route::post('add_cart/{id}', [HomeController::class, 'add_cart'])->name('add_cart');
-
 
 Route::middleware(['auth', 'admin'])->group(function() {
     Route::prefix('admin')->group(function() {

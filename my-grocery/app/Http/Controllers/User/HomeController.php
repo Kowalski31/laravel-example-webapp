@@ -35,6 +35,24 @@ class HomeController extends Controller
     public function add_cart(Request $request, $id){
 
         $user = Auth::user();
+        $existed_cart = Cart::where('product_id', $id)->where('user_id', $user->id)->first();
+
+        if(!empty($existed_cart)){
+            $quantity_check = $request->quantity;
+
+            if(!empty($quantity_check)){
+                $existed_cart->quantity = $existed_cart->quantity + $quantity_check;
+                $existed_cart->price = $existed_cart->price + ($quantity_check * Product::where('id', $id)->first()->price);
+                $existed_cart->save();
+            }else{
+                $existed_cart->quantity = $existed_cart->quantity + 1;
+                $existed_cart->price = $existed_cart->price + Product::where('id', $id)->first()->price;
+                $existed_cart->save();
+            }
+            toastr()->closeButton(true)->timeOut(2000)->success('product added');
+            return redirect()->back();
+        }
+
         $cart = new Cart();
         $cart->product_id = $id;
         $cart->user_id = $user->id;
@@ -53,5 +71,21 @@ class HomeController extends Controller
 
         toastr()->closeButton(true)->timeOut(2000)->success('product added successfully');
         return redirect()->back();
+    }
+
+    public function cart()
+    {
+        $user = Auth::user();
+
+        $cart = Cart::where('user_id', $user->id)->get();
+        return view('home.cart', compact('user', 'cart'));
+    }
+
+    public function checkout()
+    {
+        $user = Auth::user();
+        $cart = Cart::where('user_id', $user->id)->get();
+
+        return view('home.checkout', compact('user', 'cart'));
     }
 }

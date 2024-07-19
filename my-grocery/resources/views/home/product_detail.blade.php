@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
     <style>
         .carousel-item img {
-            width: 800px; /* Set width as desired */
-            height: 400px; /* Set height as desired */
-            object-fit: contain; /* Ensure the image covers the container */
+            width: 800px;
+            height: 400px;
+            object-fit: contain;
         }
     </style>
 </head>
@@ -29,13 +29,13 @@
     <div class="container mt-5">
         <div class="row">
             <!-- Image Section -->
-            <div class="col-md-6">
-                <div id="product-images" class="carousel slide" data-bs-ride="carousel">
+            <div class="col-md-6 border rounded shadow-sm">
+                <div id="product-images" class="carousel carousel-dark slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         @if ($product->pictures && $product->pictures->isNotEmpty())
                             @foreach ($product->pictures as $index => $pic)
                                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                                    <img src="{{ asset('images/' . $pic->link) }}" class="d-block w-50"
+                                    <img src="{{ asset('images/' . $pic->link) }}" class="d-block w-100"
                                         alt="Product Image">
                                 </div>
                             @endforeach
@@ -124,7 +124,6 @@
         </div>
         <!-- End Tabs Section -->
     </div>
-
 
     <!-- Footer -->
     @include('home.footer')

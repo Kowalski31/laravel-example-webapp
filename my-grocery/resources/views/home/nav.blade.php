@@ -22,16 +22,16 @@
                     <a class="nav-link" href="#">Boys</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Check Out</a>
+                    <a class="nav-link" href="{{ route('checkout') }}">Check Out</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('cart') }}">
                         Cart
                         <i class='bx bx-cart-alt'></i>
                     </a>
                 </li>
             </ul>
-            
+
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search for products" aria-label="Search">
                 <button class="btn btn-outline-light" type="submit">Search</button>
