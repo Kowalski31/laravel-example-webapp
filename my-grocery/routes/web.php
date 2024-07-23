@@ -19,12 +19,24 @@ Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 Route::middleware(['auth'])->group(function(){
     Route::prefix('checkout')->group(function(){
         Route::get('/', [HomeController::class, 'checkout'])->name('checkout');
+        Route::post('order', [HomeController::class, 'order'])->name('order');
     });
 
     Route::prefix('cart')->group(function(){
         Route::get('/', [HomeController::class, 'cart'])->name('cart');
         Route::post('add/{id}', [HomeController::class, 'add_cart'])->name('add_cart');
+        Route::get('delete/{id}', [HomeController::class, 'delete_CartProduct'])->name('delete_CartProduct');
     });
+    Route::get('profile', [HomeController::class, 'profile'])->name('profile');
+
+    Route::prefix('bank_account')->group(function(){
+        Route::get('/', [HomeController::class, 'bank'])->name('bank');
+        Route::post('add', [HomeController::class, 'add_bank'])->name('add_bank');
+
+        Route::get('delete/{id}', [HomeController::class, 'delete_bank'])->name('delete_bank');
+    });
+
+
 });
 
 Route::get('/product_detail/{id}', [HomeController::class, 'product_detail'])->name('product_detail');

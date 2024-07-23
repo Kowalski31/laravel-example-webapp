@@ -38,73 +38,84 @@
 
     <!-- Body -->
     <div class="container mt-5 mb-5">
-        <div class="row">
+        <div class="row d-flex justify-content-center">
             <!-- Cart Items -->
             <h1 class="text-center mb-4">Your Cart</h1>
-            <div class="col-md-8 border-end">
-                @php
-                    $subtotal = 0;
-                    $shipping_fee = 0;
-                @endphp
 
-                @foreach ($cart as $item)
-                    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-                        <div class="d-flex align-items-center">
-                            <img src="{{ asset('./images/' . $item->link) }}" alt="{{ $item->product->title }}"
-                                class="img-fluid" style="width: 100px; height: 100px;">
-                            <div class="ms-3">
-                                <h5>{{ $item->product->title }}</h5>
-                                <p class="mb-1">${{ $item->product->price }}</p>
-                            </div>
+            @if ($cart_count == 0)
+                <div class="col-md-8 ">
+                    <div class="card ">
+                        <div class="card-body ">
+                            <h4 class="card-title text-center">Your cart is empty</h4>
                         </div>
-                        <div class="d-flex align-items-center">
-                            <input type="number" class="form-control me-3" value="{{ $item->quantity }}"
-                                style="width: 60px;">
+                    </div>
+                </div>
+            @else
+                <div class="col-md-8 border-end">
+                    @php
+                        $subtotal = 0;
+                        $shipping_fee = 0;
+                    @endphp
+
+                    @foreach ($cart as $item)
+                        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ asset('./images/' . $item->link) }}" alt="{{ $item->product->title }}"
+                                    class="img-fluid" style="width: 100px; height: 100px;">
+                                <div class="ms-3">
+                                    <h5>{{ $item->product->title }}</h5>
+                                    <p class="mb-1">${{ $item->product->price }}</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <input type="number" class="form-control me-3" value="{{ $item->quantity }}"
+                                    style="width: 60px;">
                                 @php
 
                                     $total = $item->product->price * $item->quantity;
                                     $subtotal += $total;
                                 @endphp
-                            <p class="mb-0 me-3">${{ $total }}</p>
-                            <a href="#" class="btn btn-danger btn-sm">Remove</a>
+                                <p class="mb-0 me-3">${{ $total }}</p>
+                                <a href="{{ route('delete_CartProduct', $item->id) }}" class="btn btn-danger btn-sm">Remove</a>
+                            </div>
+                        </div>
+                    @endforeach
+
+
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <a href="{{ route('welcome') }}" class="btn btn-secondary">Continue Shopping</a>
+                    </div>
+                </div>
+
+                @php
+                    $cart_total = $subtotal + $shipping_fee;
+                @endphp
+
+                <!-- Cart Totals -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title text-center">Cart Total</h4>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Subtotal
+                                    <span>${{ $subtotal }}</span> <!-- $subtotal -->
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Shipping
+                                    <span>Free</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Total
+                                    <span>${{ $cart_total }}</span> <!-- $total -->
+                                </li>
+                            </ul>
+                            <button class="btn btn-primary mt-4 w-100">Proceed to Checkout</button>
                         </div>
                     </div>
-                @endforeach
-
-
-                <div class="d-flex justify-content-between align-items-center mt-4">
-                    <a href="{{ route('welcome') }}" class="btn btn-secondary">Continue Shopping</a>
-                    <a href="{{ route('checkout') }}" class="btn btn-primary">Proceed to Checkout</a>
                 </div>
-            </div>
 
-            @php
-                $cart_total = $subtotal + $shipping_fee;
-            @endphp
-
-            <!-- Cart Totals -->
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title text-center">Cart Total</h4>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Subtotal
-                                <span>${{ $subtotal }}</span> <!-- $subtotal -->
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Shipping
-                                <span>Free</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Total
-                                <span>${{ $cart_total }}</span> <!-- $total -->
-                            </li>
-                        </ul>
-                        <button class="btn btn-primary mt-4 w-100">Proceed to Checkout</button>
-                    </div>
-                </div>
-            </div>
+            @endif
         </div>
     </div>
 

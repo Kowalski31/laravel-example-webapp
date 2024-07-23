@@ -78,14 +78,72 @@ class HomeController extends Controller
         $user = Auth::user();
 
         $cart = Cart::where('user_id', $user->id)->get();
-        return view('home.cart', compact('user', 'cart'));
+
+        $cart_count = Cart::where('user_id', $user->id)->count();
+
+        return view('home.cart', compact('user', 'cart', 'cart_count'));
     }
 
-    public function checkout()
+    public function checkout(Request $request)
     {
         $user = Auth::user();
         $cart = Cart::where('user_id', $user->id)->get();
 
-        return view('home.checkout', compact('user', 'cart'));
+        if($cart->count() == 0)
+        {
+            return redirect()->route('cart');
+        }
+
+        $total_price = 0;
+        foreach($cart as $c){
+            $total_price = $total_price + $c->price;
+        }
+        return view('home.checkout', compact('user', 'cart', 'total_price'));
+    }
+
+    public function delete_CartProduct($id)
+    {
+        $cart = Cart::findOrFail($id);
+        $cart->delete();
+
+        toastr()->closeButton(true)->timeOut(2000)->success('product deleted successfully');
+        return redirect()->back();
+    }
+
+    public function order(Request $request)
+    {
+        // $user = Auth::user();
+        // $cart = Cart::where('user_id', $user->id)->get();
+
+        // $total_price = 0;
+        // foreach($cart as $c){
+        //     $total_price = $total_price + $c->price;
+        // }
+
+        // $order = new Order();
+        // $order->user_id = $user->id;
+        // $order->payment_type = $request->payment_type;
+        // $order->status = 'PENDING';
+        // $order->address = $request->address;
+        // $order->phone = $request->phone;
+        // $order->total_price = $total_price;
+        // $order->delivery_date = $request->delivery_date;
+        // $order->receiver_name = $request->receiver_name;
+        // $order->ship_money = $request->ship_money;
+        // $order->bank_id = 1;
+        // $order->save();
+
+        // foreach($cart as $c){
+        //     $c->delete();
+        // }
+
+        toastr()->closeButton(true)->timeOut(2000)->success('order placed successfully');
+        return redirect()->route('welcome');
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+        return view('home.profile', compact('user'));
     }
 }

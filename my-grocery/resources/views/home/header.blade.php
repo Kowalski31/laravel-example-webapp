@@ -20,7 +20,7 @@
                             <i class="bx bx-user-circle" style="font-size: 1.9rem;"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a></li>
                             <li><a class="dropdown-item" href="#">Settings</a></li>
                             <li><a class="dropdown-item" href="#">Orders</a></li>
                             <li>
