@@ -10,7 +10,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
-    
+
 </head>
 
 <body>
@@ -24,7 +24,7 @@
 
     <!-- Body -->
 
-
+    <a href="{{ route('view_bank') }}">Bank</a>
     <!-- End Body -->
 
     <!-- Footer -->

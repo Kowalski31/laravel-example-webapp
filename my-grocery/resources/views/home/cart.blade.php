@@ -70,11 +70,12 @@
                             <div class="d-flex align-items-center">
                                 <input type="number" class="form-control me-3" value="{{ $item->quantity }}"
                                     style="width: 60px;">
-                                @php
 
+                                @php
                                     $total = $item->product->price * $item->quantity;
                                     $subtotal += $total;
                                 @endphp
+
                                 <p class="mb-0 me-3">${{ $total }}</p>
                                 <a href="{{ route('delete_CartProduct', $item->id) }}" class="btn btn-danger btn-sm">Remove</a>
                             </div>
@@ -110,7 +111,8 @@
                                     <span>${{ $cart_total }}</span> <!-- $total -->
                                 </li>
                             </ul>
-                            <button class="btn btn-primary mt-4 w-100">Proceed to Checkout</button>
+                            <a href="{{ route('checkout') }}" class="btn btn-primary mt-4 w-100">Proceed to Checkout</a>
+                            {{-- <button class="btn btn-primary mt-4 w-100">Proceed to Checkout</button> --}}
                         </div>
                     </div>
                 </div>

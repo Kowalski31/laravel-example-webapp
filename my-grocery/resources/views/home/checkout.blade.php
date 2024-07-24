@@ -39,16 +39,16 @@
             <!-- Billing Details -->
             <div class="col-md-7 border-end">
                 <h2>Billing Details</h2>
-                <form action="#" method="POST">
+                <form action="#" method="POST" id="">
                     @csrf
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="firstName" class="form-label">First name *</label>
-                            <input type="text" class="form-control" id="firstName" name="first_name" required>
+                            <input type="text" class="form-control" id="firstName" name="first_name" value="{{ $user->name }}" required>
                         </div>
                         <div class="col-md-6">
-                            <label for="lastName" class="form-label">Last name *</label>
-                            <input type="text" class="form-control" id="lastName" name="last_name" required>
+                            <label for="lastName" class="form-label">Last name </label>
+                            <input type="text" class="form-control" id="lastName" name="last_name">
                         </div>
                         <div class="col-12">
                             <label for="address" class="form-label">Address *</label>
@@ -104,6 +104,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                 </form>
             </div>
             <!-- Order Summary -->
@@ -142,7 +144,7 @@
                     </label>
                 </div>
 
-                <button class="btn btn-success w-100 mt-3" type="submit" form="checkoutForm">Place an Order</button>
+                <button class="btn btn-success w-100 mt-3" type="submit" form="checkoutForm" id="">Place an Order</button>
 
             </div>
 

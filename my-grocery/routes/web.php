@@ -30,9 +30,9 @@ Route::middleware(['auth'])->group(function(){
     Route::get('profile', [HomeController::class, 'profile'])->name('profile');
 
     Route::prefix('bank_account')->group(function(){
-        Route::get('/', [HomeController::class, 'bank'])->name('bank');
+        Route::get('/', [HomeController::class, 'view_bank'])->name('view_bank');
         Route::post('add', [HomeController::class, 'add_bank'])->name('add_bank');
-
+        Route::post('edit/{id}', [HomeController::class, 'edit_bank'])->name('edit_bank');
         Route::get('delete/{id}', [HomeController::class, 'delete_bank'])->name('delete_bank');
     });
 
