@@ -13,7 +13,6 @@ Route::post('register', [AuthController::class, 'register']);
 
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
-
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 
 Route::middleware(['auth'])->group(function(){
@@ -35,8 +34,6 @@ Route::middleware(['auth'])->group(function(){
         Route::post('edit/{id}', [HomeController::class, 'edit_bank'])->name('edit_bank');
         Route::get('delete/{id}', [HomeController::class, 'delete_bank'])->name('delete_bank');
     });
-
-
 });
 
 Route::get('/product_detail/{id}', [HomeController::class, 'product_detail'])->name('product_detail');
@@ -50,7 +47,6 @@ Route::middleware(['auth', 'admin'])->group(function() {
             Route::post('add', [DashboardController::class, 'add_category'])->name('add_category');
             Route::post('edit/{id}', [DashboardController::class, 'edit_category'])->name('edit_category');
             Route::get('delete/{id}', [DashboardController::class, 'delete_category'])->name('delete_category');
-
         });
 
         Route::prefix('product')->group(function(){
@@ -59,7 +55,6 @@ Route::middleware(['auth', 'admin'])->group(function() {
             Route::post('edit/{id}', [DashboardController::class, 'edit_product'])->name('edit_product');
             Route::post('update/{id}', [DashboardController::class, 'update_product'])->name('update_product');
             Route::get('delete/{id}', [DashboardController::class, 'delete_product'])->name('delete_product');
-
         });
 
     });

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const productCards = document.querySelectorAll('.product-card');
-    console.log(productCards);
+    
     productCards.forEach(card => {
         card.addEventListener('click', function (event) {
             // Prevent navigation if 'Add to Cart' button is clicked

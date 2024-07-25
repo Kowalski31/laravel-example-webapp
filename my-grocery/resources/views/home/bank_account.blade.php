@@ -49,7 +49,9 @@
                             <button class="btn btn-success btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#editBankAccountModal-{{ $account->id }}">Edit</button>
 
-                            <button class="btn btn-danger btn-sm" type="submit" >Delete</button>
+                            <a href="{{ route('delete_bank', $account->id) }}" class="btn btn-danger btn-sm"
+                                onclick="confirmation(event)">Delete</a>
+
                         </td>
                     </tr>
 
@@ -125,7 +127,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('home-js/home_index.js') }}"></script>
+    <script src="{{ asset('admin-css/js/category.js') }}"></script>
 </body>
 
 </html>

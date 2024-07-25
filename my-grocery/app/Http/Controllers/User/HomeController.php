@@ -113,30 +113,48 @@ class HomeController extends Controller
 
     public function order(Request $request)
     {
-        // $user = Auth::user();
-        // $cart = Cart::where('user_id', $user->id)->get();
+        $user = Auth::user();
+        $cart = Cart::where('user_id', $user->id)->get();
 
-        // $total_price = 0;
-        // foreach($cart as $c){
-        //     $total_price = $total_price + $c->price;
-        // }
+        $sum_price = 0;
+        foreach($cart as $c){
+            $sum_price = $sum_price + $c->price;
+        }
 
-        // $order = new Order();
-        // $order->user_id = $user->id;
-        // $order->payment_type = $request->payment_type;
-        // $order->status = 'PENDING';
-        // $order->address = $request->address;
-        // $order->phone = $request->phone;
-        // $order->total_price = $total_price;
-        // $order->delivery_date = $request->delivery_date;
-        // $order->receiver_name = $request->receiver_name;
-        // $order->ship_money = $request->ship_money;
-        // $order->bank_id = 1;
-        // $order->save();
+        $order = new Order();
+        $order->user_id = $user->id;
+        $order->receiver_name = $request->customer_name;
+        $order->payment_type = $request->payment_method;
+
+        if($request->payment_method == 'TRANSFER')
+        {
+            $order->status = 'APPROVED';
+        }
+        else
+        {
+            $order->status = 'PENDING';
+        }
+
+        $customer_address = $request->address . ', ' . $request->city . ', ' . $request->country . ', ' . $request->zip;
+
+        $order->address = $customer_address;
+        $order->phone = $request->phone;
+        $order->total_price;
+        
 
         // foreach($cart as $c){
         //     $c->delete();
         // }
+
+        // "customer_name" => "user"
+        // "address" => "Number 11"
+        // "country" => "USA"
+        // "city" => "New York"
+        // "zip" => "1231312"
+        // "phone" => "0977823441"
+        // "email" => "user@gmail.com"
+        // "additional_info" => null
+        // "payment_method" => "bank_transfer"
 
         toastr()->closeButton(true)->timeOut(2000)->success('order placed successfully');
         return redirect()->route('welcome');
@@ -164,7 +182,7 @@ class HomeController extends Controller
         $bank->user_id = $user->id;
 
         $bank->bank_name = $request->bank_name;
-        
+
         $bank->account_number = $request->account_number;
         $bank->save();
 
@@ -180,6 +198,15 @@ class HomeController extends Controller
         $bank_account->save();
 
         toastr()->closeButton(true)->timeOut(2000)->success('bank account updated successfully');
+        return redirect()->back();
+    }
+
+    public function delete_bank($id)
+    {
+        $bank_account = Bank_account::findOrFail($id);
+        $bank_account->delete();
+
+        toastr()->closeButton(true)->timeOut(2000)->info('bank account deleted successfully');
         return redirect()->back();
     }
 }

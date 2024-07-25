@@ -1,6 +1,8 @@
 /* -------------- CHARTS -------------- */
 
 // BAR CHART
+
+
 document.addEventListener('DOMContentLoaded', function() {
 
     const barChartOptions = {
@@ -50,8 +52,8 @@ document.addEventListener('DOMContentLoaded', function() {
               );
               barChart.render();
         }
-  
-  
+
+
   // AREA CHART
   const areaChartOptions = {
     series: [
@@ -102,11 +104,11 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
   var temp2 = document.querySelector('#area-chart');
-  
+
   if(temp2)
     {
         const areaChart = new ApexCharts(document.querySelector('#area-chart'), areaChartOptions);
         areaChart.render();
     }
-  
+
 });
