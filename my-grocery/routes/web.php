@@ -27,6 +27,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('delete/{id}', [HomeController::class, 'delete_CartProduct'])->name('delete_CartProduct');
     });
     Route::get('profile', [HomeController::class, 'profile'])->name('profile');
+    Route::get('history', [HomeController::class, 'history'])->name('history');
 
     Route::prefix('bank_account')->group(function(){
         Route::get('/', [HomeController::class, 'view_bank'])->name('view_bank');

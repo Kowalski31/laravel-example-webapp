@@ -10,16 +10,7 @@
                     <a class="nav-link" href="#">Category</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Women</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Men</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Girls</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Boys</a>
+                    <a class="nav-link" href="{{ route('history') }}">History</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('checkout') }}">Check Out</a>

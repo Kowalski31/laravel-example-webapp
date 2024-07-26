@@ -12,6 +12,7 @@ use App\Models\Order;
 use App\Models\Cart;
 use App\Models\Product_picture;
 use App\Models\Bank_account;
+use App\Models\Order_detail;
 
 class HomeController extends Controller
 {
@@ -89,6 +90,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $cart = Cart::where('user_id', $user->id)->get();
+        $bank_accounts = Bank_account::where('user_id', $user->id)->get();
 
         if($cart->count() == 0)
         {
@@ -99,7 +101,7 @@ class HomeController extends Controller
         foreach($cart as $c){
             $total_price = $total_price + $c->price;
         }
-        return view('home.checkout', compact('user', 'cart', 'total_price'));
+        return view('home.checkout', compact('user', 'cart', 'total_price', 'bank_accounts'));
     }
 
     public function delete_CartProduct($id)
@@ -107,7 +109,7 @@ class HomeController extends Controller
         $cart = Cart::findOrFail($id);
         $cart->delete();
 
-        toastr()->closeButton(true)->timeOut(2000)->success('product deleted successfully');
+        toastr()->closeButton(true)->timeOut(2000)->info('product deleted successfully');
         return redirect()->back();
     }
 
@@ -116,35 +118,41 @@ class HomeController extends Controller
         $user = Auth::user();
         $cart = Cart::where('user_id', $user->id)->get();
 
+        $order = new Order();
+        $order->user_id = $user->id;
+        $customer_address = $request->address . ', ' . $request->city . ', ' . $request->country . ', ' . $request->zip;
+        $order->address = $customer_address;
+        $order->phone = $request->phone;
+
         $sum_price = 0;
         foreach($cart as $c){
             $sum_price = $sum_price + $c->price;
         }
+        $order->total_price = $sum_price;
 
-        $order = new Order();
-        $order->user_id = $user->id;
         $order->receiver_name = $request->customer_name;
+
         $order->payment_type = $request->payment_method;
+        $order->status = 'PENDING';
 
         if($request->payment_method == 'TRANSFER')
         {
+            $order->bank_id = $request->bank_account;
             $order->status = 'APPROVED';
         }
-        else
-        {
-            $order->status = 'PENDING';
+
+        $order->ship_money = 0;
+        $order->save();
+
+        foreach($cart as $c){
+            $order_detail = new Order_detail();
+            $order_detail->order_id = $order->id;
+            $order_detail->product_id = $c->product_id;
+            $order_detail->quantity = $c->quantity;
+            $order_detail->price = $c->price;
+            $c->delete();
+            $order_detail->save();
         }
-
-        $customer_address = $request->address . ', ' . $request->city . ', ' . $request->country . ', ' . $request->zip;
-
-        $order->address = $customer_address;
-        $order->phone = $request->phone;
-        $order->total_price;
-        
-
-        // foreach($cart as $c){
-        //     $c->delete();
-        // }
 
         // "customer_name" => "user"
         // "address" => "Number 11"
@@ -208,5 +216,14 @@ class HomeController extends Controller
 
         toastr()->closeButton(true)->timeOut(2000)->info('bank account deleted successfully');
         return redirect()->back();
+    }
+
+    public function history()
+    {
+        $user = Auth::user();
+        $order = Order::where('user_id', $user->id)->first();
+        dd($order->id);
+        // $orders_detail = Order_detail::where('order_id', $order->id)->get();
+        return view('home.history', compact('user', 'orders_detail'));
     }
 }

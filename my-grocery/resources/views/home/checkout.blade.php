@@ -129,6 +129,19 @@
                 </label>
             </div>
 
+            <!-- Bank Accounts (hidden by default) -->
+            <div id="bankAccounts" class="mt-3" style="display: none;">
+                <h3>Select Bank Account</h3>
+                @foreach ($bank_accounts as $account)
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="bank_account" id="bankAccount-{{ $account->id }}" value="{{ $account->id }}" form="checkoutForm">
+                        <label class="form-check-label" for="bankAccount-{{ $account->id }}">
+                            {{ $account->bank_name }} - {{ $account->account_number }}
+                        </label>
+                    </div>
+                @endforeach
+            </div>
+
             <button class="btn btn-success w-100 mt-3" type="submit" form="checkoutForm">Place an Order</button>
 
         </div>
@@ -144,6 +157,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="{{ asset('home-js/home_index.js') }}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        var paymentBank = document.getElementById('paymentBank');
+        var paymentCash = document.getElementById('paymentCash');
+        var bankAccounts = document.getElementById('bankAccounts');
+
+        paymentBank.addEventListener('change', function () {
+            bankAccounts.style.display = 'block';
+        });
+
+        paymentCash.addEventListener('change', function () {
+            bankAccounts.style.display = 'none';
+    });
+});
+    </script>
 </body>
 
 </html>
