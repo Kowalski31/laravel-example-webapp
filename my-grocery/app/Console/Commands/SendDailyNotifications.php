@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 
 use App\Models\User;
+use App\Models\Notification;
+
 
 
 class SendDailyNotifications extends Command

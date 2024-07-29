@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schedule;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderMail;
 
 use App\Models\Product;
 use App\Models\Category;
@@ -20,6 +22,7 @@ class HomeController extends Controller
 
     public function welcome()
     {
+        // Mail::to('khanh.toan.s3corp@gmail.com')->send(new OrderMail());
         $user = Auth::user();
         $products = Product::all();
         $categories = Category::all();
