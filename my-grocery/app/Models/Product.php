@@ -20,7 +20,7 @@ class Product extends Model
     }
 
     public function pictures()
-    {
+    { 
         return $this->hasMany(Product_picture::class);
     }
     use HasFactory;

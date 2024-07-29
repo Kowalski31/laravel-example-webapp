@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -9,14 +8,34 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Product_picture;
+use App\Models\Order;
+use App\Models\Order_detail;
 
 class DashboardController extends Controller
 {
     public function index()
     {
         $user = Auth::user();
-        $product = Product::count();
-        return view('admin.dashboard', compact('user', 'product'));
+        $product_quantity = Product::count();
+        $order_quantity = Order::count();
+        $category_quantity = Category::count();
+
+        $top_5_products = Order_detail::select('product_id' , \DB::raw('sum(quantity) as total_quantity'))
+            ->groupBy('product_id')
+            ->orderBy('total_quantity', 'desc')
+            ->limit(5)
+            ->get();
+
+        $top_products_name = array();
+        $top_products_quantity = array();
+
+        foreach ($top_5_products as $item){
+            $product = Product::findOrFail($item->product_id);
+            $top_products_name[] = $product->title;
+            $top_products_quantity[] = $item->total_quantity;
+        }
+
+        return view('admin.dashboard', compact('user', 'product_quantity', 'order_quantity', 'category_quantity', 'top_products_name', 'top_products_quantity'));
     }
 
     // Start Category
@@ -75,7 +94,7 @@ class DashboardController extends Controller
 
         $images = $request->images;
         if(!empty($images)) {
-            
+
             foreach ($images as $image) {
                 $name = time() . '-' . $image->getClientOriginalName();
                 $image->move(public_path('images'), $name);

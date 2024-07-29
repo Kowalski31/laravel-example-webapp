@@ -16,42 +16,49 @@
                 <span>Dashboard</span>
             </a>
         </li>
+
         <li class="">
             <a href="{{ route('product') }}" class="d-flex align-items-center">
                 <i class="bx bxs-shopping-bag me-2"></i>
                 <span>Products</span>
             </a>
         </li>
+
         <li class="">
             <a href="{{ route('category') }}" class="d-flex align-items-center">
                 <i class="bx bx-category-alt me-2"></i>
                 <span>Categories</span>
             </a>
         </li>
+
         <li class="">
             <a href="#" class="d-flex align-items-center">
                 <i class="bx bxs-food-menu me-2"></i>
                 <span>Orders</span>
             </a>
         </li>
+
         <li class="">
             <a href="#" class="d-flex align-items-center">
                 <i class="bx bx-body me-2"></i>
                 <span>Customers</span>
             </a>
         </li>
+
         <li class="">
             <a href="#" class="d-flex align-items-center">
                 <i class="bx bx-location-plus me-2"></i>
                 <span>Shipping</span>
             </a>
         </li>
+
         <li class="">
             <a href="#" class="d-flex align-items-center">
                 <i class="bx bx-cog me-2"></i>
                 <span>Settings</span>
             </a>
         </li>
+        
         <li class="">
             <a href="{{ route('logout') }}" class="d-flex align-items-center"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

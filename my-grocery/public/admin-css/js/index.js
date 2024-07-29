@@ -2,13 +2,28 @@
 
 // BAR CHART
 
+if (window.productName && window.productQuantity)
+{
+    temp1 = window.productQuantity.map(Number);
+    temp2 = window.productName;
+
+    res1 = [...temp1];
+    res2 = [...temp2];
+
+    console.log(temp1);
+    console.log(temp2);
+}
+else
+{
+    console.log("No data found");
+}
 
 document.addEventListener('DOMContentLoaded', function() {
 
     const barChartOptions = {
     series: [
       {
-        data: [10, 8, 6, 4, 2],
+        data: res1,
       },
     ],
     chart: {
@@ -34,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
       show: false,
     },
     xaxis: {
-      categories: ['Laptop', 'Phone', 'Monitor', 'Headphones', 'Camera'],
+      categories: res2,
     },
     yaxis: {
       title: {

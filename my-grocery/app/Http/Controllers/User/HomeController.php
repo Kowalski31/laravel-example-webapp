@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schedule;
 
 use App\Models\Product;
 use App\Models\Category;
@@ -22,6 +23,8 @@ class HomeController extends Controller
         $user = Auth::user();
         $products = Product::all();
         $categories = Category::all();
+
+        // Artisan::command() {};
         return view('welcome', compact('user', 'products', 'categories'));
     }
 
@@ -221,9 +224,18 @@ class HomeController extends Controller
     public function history()
     {
         $user = Auth::user();
-        $order = Order::where('user_id', $user->id)->first();
-        dd($order->id);
-        // $orders_detail = Order_detail::where('order_id', $order->id)->get();
-        return view('home.history', compact('user', 'orders_detail'));
+        $orders = Order::where('user_id', $user->id);
+        $order_detail = array();
+
+        if($orders->count() > 0){
+            $orders = $orders->get();
+            foreach($orders as $order){
+                $order_details[$order->id] = Order_detail::where('order_id', $order->id)->get();
+            }
+        }
+
+        // dd($order_detail);
+
+        return view('home.history', compact('user', 'orders', 'order_details'));
     }
 }
