@@ -26,7 +26,9 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/', [HomeController::class, 'cart'])->name('cart');
         Route::post('add/{id}', [HomeController::class, 'add_cart'])->name('add_cart');
         Route::get('delete/{id}', [HomeController::class, 'delete_CartProduct'])->name('delete_CartProduct');
+        Route::post('update-quantity/{id}', [HomeController::class, 'updateQuantity'])->name('updateQuantity');
     });
+
     Route::get('profile', [HomeController::class, 'profile'])->name('profile');
     Route::get('history', [HomeController::class, 'history'])->name('history');
 

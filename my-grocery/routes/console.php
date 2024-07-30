@@ -14,6 +14,7 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 Schedule::call(function (){
+    // them order detail de hien thi view Order, folder emails
     $users = User::all();
     foreach($users as $user){
         $order = Order::where('user_id', $user->id)->first();

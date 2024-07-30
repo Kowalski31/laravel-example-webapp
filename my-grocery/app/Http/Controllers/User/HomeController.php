@@ -19,18 +19,15 @@ class HomeController extends Controller
 
     public function welcome()
     {
-        // Mail::to('khanh.toan.s3corp@gmail.com')->send(new OrderMail());
         $user = Auth::user();
         $products = Product::all();
         $categories = Category::all();
 
-        // Artisan::command() {};
         return view('welcome', compact('user', 'products', 'categories'));
     }
 
     public function product_detail($id)
     {
-
         $user = Auth::user();
         $product = Product::findOrFail($id);
         $categories = Category::all();
@@ -42,16 +39,19 @@ class HomeController extends Controller
         $user = Auth::user();
         $existed_cart = Cart::where('product_id', $id)->where('user_id', $user->id)->first();
 
+
+        $product_price = Product::where('id', $id)->first()->price;
+
         if(!empty($existed_cart)){
             $quantity_check = $request->quantity;
 
             if(!empty($quantity_check)){
                 $existed_cart->quantity = $existed_cart->quantity + $quantity_check;
-                $existed_cart->price = $existed_cart->price + ($quantity_check * Product::where('id', $id)->first()->price);
+                $existed_cart->price = $existed_cart->quantity * $product_price;
                 $existed_cart->save();
             }else{
                 $existed_cart->quantity = $existed_cart->quantity + 1;
-                $existed_cart->price = $existed_cart->price + Product::where('id', $id)->first()->price;
+                $existed_cart->price = $existed_cart->price + $product_price;
                 $existed_cart->save();
             }
             toastr()->closeButton(true)->timeOut(2000)->success('product added');
@@ -65,10 +65,10 @@ class HomeController extends Controller
         $quantity_check = $request->quantity;
         if(!empty($quantity_check)){
             $cart->quantity = $request->quantity;
-            $cart->price = $request->quantity * Product::where('id', $id)->first()->price;
+            $cart->price = $request->quantity * $product_price;
         }else{
             $cart->quantity = 1;
-            $cart->price = Product::where('id', $id)->first()->price;
+            $cart->price = $product_price;
         }
 
         $cart->link = Product_picture::where('product_id', $id)->first()->link;
@@ -87,6 +87,30 @@ class HomeController extends Controller
         $cart_count = Cart::where('user_id', $user->id)->count();
 
         return view('home.cart', compact('user', 'cart', 'cart_count'));
+    }
+
+    public function updateQuantity(Request $request, $id)
+    {
+       $cart = Cart::findOrFail($id);
+
+        // Cập nhật số lượng sản phẩm
+        $cart->quantity = $request->input('quantity');
+        $cart->price = $cart->quantity * $cart->product->price; // Cập nhật giá trị của sản phẩm
+        $cart->save();
+
+        // Tính toán lại tổng giá trị của sản phẩm
+        $itemTotal = $cart->price;
+
+        // Cập nhật subtotal và total cho giỏ hàng
+        $subtotal = Cart::sum('price');
+        $total = $subtotal;
+
+        // Trả về phản hồi JSON
+        return response()->json([
+            'itemTotal' => $itemTotal,
+            'subtotal' => $subtotal,
+            'total' => $total
+        ]);
     }
 
     public function checkout(Request $request)
@@ -109,11 +133,21 @@ class HomeController extends Controller
 
     public function delete_CartProduct($id)
     {
+        $user = Auth::user();
         $cart = Cart::findOrFail($id);
         $cart->delete();
 
-        toastr()->closeButton(true)->timeOut(2000)->info('product deleted successfully');
-        return redirect()->back();
+        // Cập nhật subtotal và total cho giỏ hàng
+        $subtotal = Cart::sum('price');
+        $total = $subtotal;
+        $cartCount = Cart::where('user_id', Auth::id())->count();
+
+
+        return response()->json([
+            'subtotal' => $subtotal,
+            'total' => $total,
+            'cartCount' => $cartCount
+        ]);
     }
 
     public function order(Request $request)
