@@ -5,9 +5,6 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Schedule;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\OrderMail;
 
 use App\Models\Product;
 use App\Models\Category;
@@ -241,4 +238,6 @@ class HomeController extends Controller
 
         return view('home.history', compact('user', 'orders', 'order_details'));
     }
+
+
 }

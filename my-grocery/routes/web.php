@@ -15,6 +15,7 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 
+
 Route::middleware(['auth'])->group(function(){
     Route::prefix('checkout')->group(function(){
         Route::get('/', [HomeController::class, 'checkout'])->name('checkout');
@@ -28,6 +29,8 @@ Route::middleware(['auth'])->group(function(){
     });
     Route::get('profile', [HomeController::class, 'profile'])->name('profile');
     Route::get('history', [HomeController::class, 'history'])->name('history');
+
+
 
     Route::prefix('bank_account')->group(function(){
         Route::get('/', [HomeController::class, 'view_bank'])->name('view_bank');
