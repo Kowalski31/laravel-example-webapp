@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
@@ -32,8 +34,6 @@ Route::middleware(['auth'])->group(function(){
     Route::get('profile', [HomeController::class, 'profile'])->name('profile');
     Route::get('history', [HomeController::class, 'history'])->name('history');
 
-
-
     Route::prefix('bank_account')->group(function(){
         Route::get('/', [HomeController::class, 'view_bank'])->name('view_bank');
         Route::post('add', [HomeController::class, 'add_bank'])->name('add_bank');
@@ -49,18 +49,17 @@ Route::middleware(['auth', 'admin'])->group(function() {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
         Route::prefix('category')->group(function(){
-            Route::get('/', [DashboardController::class, 'view_category'])->name('category');
-            Route::post('add', [DashboardController::class, 'add_category'])->name('add_category');
-            Route::post('edit/{id}', [DashboardController::class, 'edit_category'])->name('edit_category');
-            Route::get('delete/{id}', [DashboardController::class, 'delete_category'])->name('delete_category');
+            Route::get('/', [CategoryController::class, 'viewCategory'])->name('category');
+            Route::post('add', [CategoryController::class, 'addCategory'])->name('addCategory');
+            Route::post('edit/{id}', [CategoryController::class, 'editCategory'])->name('editCategory');
+            Route::get('delete/{id}', [CategoryController::class, 'deleteCategory'])->name('deleteCategory');
         });
 
         Route::prefix('product')->group(function(){
-            Route::get('/', [DashboardController::class, 'view_product'])->name('product');
-            Route::post('add', [DashboardController::class, 'add_product'])->name('add_product');
-            Route::post('edit/{id}', [DashboardController::class, 'edit_product'])->name('edit_product');
-            Route::post('update/{id}', [DashboardController::class, 'update_product'])->name('update_product');
-            Route::get('delete/{id}', [DashboardController::class, 'delete_product'])->name('delete_product');
+            Route::get('/', [ProductController::class, 'viewProduct'])->name('product');
+            Route::post('add', [ProductController::class, 'addProduct'])->name('addProduct');
+            Route::post('edit/{id}', [ProductController::class, 'editProduct'])->name('editProduct');
+            Route::get('delete/{id}', [ProductController::class, 'deleteProduct'])->name('deleteProduct');
         });
 
     });

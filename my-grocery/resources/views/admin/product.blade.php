@@ -63,7 +63,7 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="addProductForm" method="post" action="{{ route('add_product') }} " enctype="multipart/form-data">
+                            <form id="addProductForm" method="post" action="{{ route('addProduct') }} " enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Title</label>
@@ -171,7 +171,7 @@
                                             </div>
                                             <div class="modal-body ">
                                                 <form id="editProductForm-{{ $item->id }}" method="post"
-                                                    action="{{ route('edit_product', $item->id) }}" enctype="multipart/form-data">
+                                                    action="{{ route('editProduct', $item->id) }}" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="mb-3">
                                                         <label for="title" class="form-label">Title</label>
@@ -223,7 +223,7 @@
 
                                 <td>
                                     <a class="btn btn-danger custom-btn" onclick="confirmation(event)"
-                                        href="{{ route('delete_product', $item->id) }}">Delete</a>
+                                        href="{{ route('deleteProduct', $item->id) }}">Delete</a>
                                 </td>
                             </tr>
                         @endforeach

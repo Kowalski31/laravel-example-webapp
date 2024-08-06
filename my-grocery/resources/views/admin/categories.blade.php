@@ -32,7 +32,7 @@
 
 
             <div class="container mt-5 border border-1 border-dark p-2 rounded shadow">
-                <form class="mb-5" method="post" action="{{ route('add_category') }}">
+                <form class="mb-5" method="post" action="{{ route('addCategory') }}">
                     @csrf
                     <div class="mb-3 row d-flex align-items-center">
                         <label for="categoryName" class="col-sm-2 col-form-label fs-3 ">Category Name</label>
@@ -83,7 +83,7 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <form method="post"
-                                                        action="{{ route('edit_category', $item->id) }}"
+                                                        action="{{ route('editCategory', $item->id) }}"
                                                         id="editCategoryForm-{{ $item->id }}">
                                                         @csrf
                                                         <div class="mb-3 row d-flex">
@@ -116,19 +116,21 @@
 
                                 <td>
                                     <a class="btn btn-danger" onclick="confirmation(event)"
-                                        href="{{ route('delete_category', $item->id) }}">Delete</a>
+                                        href="{{ route('deleteCategory', $item->id) }}">Delete</a>
                                 </td>
 
 
                             </tr>
 
-                            
+
                         @endforeach
                     </tbody>
 
                 </table>
 
-
+                <div class="d-flex justify-content-end">
+                    {{ $data->links() }}
+                </div>
 
             </div>
         </div>
@@ -146,7 +148,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('admin-css/js/category.js') }}"></script>
 
-    
+
 </body>
 
 </html>
