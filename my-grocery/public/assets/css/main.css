@@ -1,5 +1,4 @@
 * {
-
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -80,9 +79,7 @@
   position: relative;
   top: 0;
   left: 0;
-
   width: 250px;
-
   background-color: #4d8815; /* #12171e */
   padding: 0.4rem 0.8rem;
   transition: all 0.5s ease;

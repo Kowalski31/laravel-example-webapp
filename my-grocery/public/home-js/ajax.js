@@ -79,7 +79,8 @@ document.addEventListener('DOMContentLoaded', function () {
                                         </div>
                                     </div>
                                 `;
-
+                        // thêm css height: 32.7vh cho class .col-md-8
+                        emptyCart.style.height = '32.7vh';
                         // Thay thế phần hiển thị sản phẩm và tổng giỏ hàng bằng thông báo giỏ hàng trống
                         cartItems.replaceWith(emptyCart);
                         if (cartTotals) {

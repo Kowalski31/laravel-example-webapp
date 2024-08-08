@@ -1,8 +1,19 @@
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    flex-direction: column;
+}
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
 }
 
 /* nav */
@@ -81,7 +92,9 @@ html, body {
     background-color: #20c997;
     color: #fff;
     padding: 40px 0;
-    position: relative;
+    position: absolute;
+    /* bottom: 0px; */
+    bottom: 0;
     width: 100%;
 }
 

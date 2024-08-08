@@ -15,12 +15,25 @@ class ProductController extends Controller
     public function viewProduct()
     {
         $categories = Category::all();
-        $products = Product::all();
+        $products = Product::paginate(4);
 
         return view('admin.product', compact('categories', 'products'));
     }
 
     public function addProduct(Request $request) {
+
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'quantity' => 'required|numeric',
+            'categories' => 'required|array',
+            'categories.*' => 'required|numeric',
+            'images' => 'nullable|array',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+
         $product = new Product();
         $product->title = $request->title;
         $product->description = $request->description;
@@ -51,6 +64,16 @@ class ProductController extends Controller
     }
 
     public function editProduct(Request $request, $id){
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'quantity' => 'required|numeric',
+            'categories' => 'required|array',
+            'categories.*' => 'required|numeric',
+            'images' => 'nullable|array',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
 
         $product_target = Product::findOrFail($id);
         $product_target->title = $request->title;
