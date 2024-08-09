@@ -6,6 +6,8 @@ use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\OrderController;
 
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
@@ -20,15 +22,15 @@ Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 
 Route::middleware(['auth'])->group(function(){
     Route::prefix('checkout')->group(function(){
-        Route::get('/', [HomeController::class, 'checkout'])->name('checkout');
-        Route::post('order', [HomeController::class, 'order'])->name('order');
+        Route::get('/', [OrderController::class, 'checkout'])->name('checkout');
+        Route::post('order', [OrderController::class, 'order'])->name('order');
     });
 
     Route::prefix('cart')->group(function(){
-        Route::get('/', [HomeController::class, 'cart'])->name('cart');
-        Route::post('add/{id}', [HomeController::class, 'add_cart'])->name('add_cart');
-        Route::get('delete/{id}', [HomeController::class, 'delete_CartProduct'])->name('delete_CartProduct');
-        Route::post('update-quantity/{id}', [HomeController::class, 'updateQuantity'])->name('updateQuantity');
+        Route::get('/', [CartController::class, 'cart'])->name('cart');
+        Route::post('add/{id}', [CartController::class, 'addCart'])->name('addCart');
+        Route::get('delete/{id}', [CartController::class, 'deleteCartProduct'])->name('deleteCartProduct');
+        Route::post('update-quantity/{id}', [CartController::class, 'updateQuantity'])->name('updateQuantity');
     });
 
     Route::get('profile', [HomeController::class, 'profile'])->name('profile');
@@ -42,7 +44,7 @@ Route::middleware(['auth'])->group(function(){
     });
 });
 
-Route::get('/product_detail/{id}', [HomeController::class, 'product_detail'])->name('product_detail');
+Route::get('/product_detail/{id}', [HomeController::class, 'productDetail'])->name('product_detail');
 
 Route::middleware(['auth', 'admin'])->group(function() {
     Route::prefix('admin')->group(function() {

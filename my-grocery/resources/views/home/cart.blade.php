@@ -11,6 +11,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
+    <script srd="{{ asset('home-js/ajax.js') }}"></script>
     <style>
         .card-body {
             background-color: #f8f9fa;
@@ -45,9 +46,9 @@
             <h1 class="text-center mb-4">Your Cart</h1>
 
             @if ($cart_count == 0)
-                <div class="col-md-8 " style="height: 32.7vh">
-                    <div class="card ">
-                        <div class="card-body ">
+                <div class="col-md-8" style="height: 32.7vh">
+                    <div class="card">
+                        <div class="card-body">
                             <h4 class="card-title text-center">Your cart is empty</h4>
                         </div>
                     </div>
@@ -60,11 +61,16 @@
                     @endphp
 
                     @foreach ($cart as $item)
+                        @php
+                            $itemTotal = $item->price;
+                            $subtotal += $itemTotal;
+                        @endphp
+
                         <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3 cart-item"
                             data-id="{{ $item->id }}">
                             <div class="d-flex align-items-center">
                                 <img src="{{ asset('./images/' . $item->link) }}" alt="{{ $item->product->title }}"
-                                    class="img-fluid" style="width: 100px; height: 100px;">
+                                    class="img-fluid" style="width: 100px; height: 100px;" loading="lazy">
                                 <div class="ms-3">
                                     <h5>{{ $item->product->title }}</h5>
                                     <p class="mb-1">${{ $item->product->price }}</p>
@@ -74,13 +80,9 @@
                                 <input type="number" class="form-control me-3 item-quantity"
                                     value="{{ $item->quantity }}" style="width: 60px;" min="1">
 
-                                @php
-                                    $subtotal += $item->price;
-                                @endphp
-
-                                <p class="mb-0 me-3 item-total">${{ $item->price }}</p>
-                                <button class="btn btn-danger btn-sm remove-item"
-                                    data-id="{{ $item->id }}">Remove</button>
+                                <p class="mb-0 me-3 item-total">${{ $itemTotal }}</p>
+                                <button class="btn btn-danger btn-sm remove-item" data-id="{{ $item->id }}"
+                                    aria-label="Remove item" title="Remove item">Remove</button>
                             </div>
                         </div>
                     @endforeach
@@ -102,7 +104,7 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Subtotal
-                                    <span id="subtotal">${{ $subtotal }}</span> <!-- $subtotal -->
+                                    <span id="subtotal">${{ $subtotal }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Shipping
@@ -110,7 +112,7 @@
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Total
-                                    <span id="total">${{ $cart_total }}</span> <!-- $total -->
+                                    <span id="total">${{ $cart_total }}</span>
                                 </li>
                             </ul>
                             <a href="{{ route('checkout') }}" class="btn btn-primary mt-4 w-100">Proceed to
@@ -121,8 +123,8 @@
             @endif
         </div>
     </div>
-
     <!-- End Body -->
+
 
     <!-- Footer -->
     @include('home.footer')
@@ -132,7 +134,7 @@
 
     <script src="{{ asset('home-js/home_index.js') }}"></script>
 
-    <script srd="{{asset('home-js/ajax.js')}}" async></script>
+
 </body>
 
 </html>

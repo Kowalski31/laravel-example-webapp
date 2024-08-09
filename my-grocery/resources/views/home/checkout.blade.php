@@ -74,22 +74,8 @@
                             <label for="additionalInfo" class="form-label">Additional information</label>
                             <textarea class="form-control" id="additionalInfo" name="additional_info" rows="3"></textarea>
                         </div>
-                        <div class="col-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="createAccount" name="create_account">
-                                <label class="form-check-label" for="createAccount">
-                                    Create an account?
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="shipToDifferent" name="ship_to_different">
-                                <label class="form-check-label" for="shipToDifferent">
-                                    Ship to a different address?
-                                </label>
-                            </div>
-                        </div>
+
+                        
                     </div>
                 </form>
             </div>
@@ -99,7 +85,7 @@
                     <span>Your Cart</span>
                 </h2>
                 <ul class="list-group mb-3">
-                    @foreach ($cart as $item)
+                    @foreach ($carts as $item)
                         <li class="list-group-item d-flex justify-content-between lh-sm">
                             <div>
                                 <h6 class="my-0">{{ $item->product->title }}</h6>

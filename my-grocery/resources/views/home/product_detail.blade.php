@@ -65,7 +65,7 @@
                 <p>Price: ${{ $product->price }}</p>
 
                 <!-- Quantity and Add to Cart -->
-                <form method="POST" action="{{ route('add_cart', $product->id) }}">
+                <form method="POST" action="{{ route('addCart', $product->id) }}">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="number" name="quantity" class="form-control" placeholder="QTY" value="1" min="1">

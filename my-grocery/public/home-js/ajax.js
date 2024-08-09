@@ -64,25 +64,31 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('subtotal').textContent = '$' + response
                         .subtotal;
                     document.getElementById('total').textContent = '$' + response.total;
-
+                    console.log(response.cartCount);
                     if (response.cartCount == 0) {
                         var cartItems = document.getElementById('cart-items');
                         var cartTotals = document.getElementById('cart-totals');
 
-                        // Tạo thông báo giỏ hàng trống
-                        var emptyCart = document.createElement('div');
-                        emptyCart.className = 'col-md-8';
-                        emptyCart.innerHTML = `
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="card-title text-center">Your cart is empty</h4>
-                                        </div>
-                                    </div>
-                                `;
-                        // thêm css height: 32.7vh cho class .col-md-8
-                        emptyCart.style.height = '32.7vh';
-                        // Thay thế phần hiển thị sản phẩm và tổng giỏ hàng bằng thông báo giỏ hàng trống
-                        cartItems.replaceWith(emptyCart);
+                        // Kiểm tra nếu `cartItems` tồn tại
+                        if (cartItems) {
+                            // Tạo thông báo giỏ hàng trống
+                            var emptyCart = document.createElement('div');
+                            emptyCart.className = 'col-md-8';
+                            emptyCart.innerHTML = `
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Your cart is empty</h4>
+                </div>
+            </div>
+        `;
+                            // Thêm CSS height: 32.7vh cho class .col-md-8
+                            emptyCart.style.height = '32.7vh';
+
+                            // Thay thế phần hiển thị sản phẩm bằng thông báo giỏ hàng trống
+                            cartItems.replaceWith(emptyCart);
+                        }
+
+                        // Kiểm tra nếu `cartTotals` tồn tại
                         if (cartTotals) {
                             cartTotals.remove();
                         }

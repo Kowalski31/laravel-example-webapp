@@ -19,13 +19,13 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $product->title }}</h5>
                         <p class="card-text">${{ $product->price }}</p>
-                        <form action="{{ route('add_cart', $product->id) }}" method="POST">
+                        <form action="{{ route('addCart', $product->id) }}" method="POST">
                             @csrf
                             <div class="input-group mb-3">
 
                                 <button class="btn btn-primary" type="submit">Add to Cart</button>
                             </div>
-                            
+
                         </form>
 
                     </div>

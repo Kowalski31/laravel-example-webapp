@@ -26,7 +26,7 @@ class HomeController extends Controller
         return view('welcome', compact('user', 'products', 'categories'));
     }
 
-    public function product_detail($id)
+    public function productDetail($id)
     {
         $user = Auth::user();
         $product = Product::findOrFail($id);
@@ -34,176 +34,18 @@ class HomeController extends Controller
         return view('home.product_detail', compact('user', 'product', 'categories'));
     }
 
-    public function add_cart(Request $request, $id){
-
-        $user = Auth::user();
-        $existed_cart = Cart::where('product_id', $id)->where('user_id', $user->id)->first();
 
 
-        $product_price = Product::where('id', $id)->first()->price;
-
-        if(!empty($existed_cart)){
-            $quantity_check = $request->quantity;
-
-            if(!empty($quantity_check)){
-                $existed_cart->quantity = $existed_cart->quantity + $quantity_check;
-                $existed_cart->price = $existed_cart->quantity * $product_price;
-                $existed_cart->save();
-            }else{
-                $existed_cart->quantity = $existed_cart->quantity + 1;
-                $existed_cart->price = $existed_cart->price + $product_price;
-                $existed_cart->save();
-            }
-            toastr()->closeButton(true)->timeOut(2000)->success('product added');
-            return redirect()->back();
-        }
-
-        $cart = new Cart();
-        $cart->product_id = $id;
-        $cart->user_id = $user->id;
-
-        $quantity_check = $request->quantity;
-        if(!empty($quantity_check)){
-            $cart->quantity = $request->quantity;
-            $cart->price = $request->quantity * $product_price;
-        }else{
-            $cart->quantity = 1;
-            $cart->price = $product_price;
-        }
-
-        $cart->link = Product_picture::where('product_id', $id)->first()->link;
-        $cart->save();
-
-        toastr()->closeButton(true)->timeOut(2000)->success('product added successfully');
-        return redirect()->back();
-    }
-
-    public function cart()
-    {
-        $user = Auth::user();
-
-        $cart = Cart::where('user_id', $user->id)->get();
-
-        $cart_count = Cart::where('user_id', $user->id)->count();
-
-        return view('home.cart', compact('user', 'cart', 'cart_count'));
-    }
-
-    public function updateQuantity(Request $request, $id)
-    {
-       $cart = Cart::findOrFail($id);
-
-        // Cập nhật số lượng sản phẩm
-        $cart->quantity = $request->input('quantity');
-        $cart->price = $cart->quantity * $cart->product->price; // Cập nhật giá trị của sản phẩm
-        $cart->save();
-
-        // Tính toán lại tổng giá trị của sản phẩm
-        $itemTotal = $cart->price;
-
-        // Cập nhật subtotal và total cho giỏ hàng
-        $subtotal = Cart::sum('price');
-        $total = $subtotal;
-
-        // Trả về phản hồi JSON
-        return response()->json([
-            'itemTotal' => $itemTotal,
-            'subtotal' => $subtotal,
-            'total' => $total
-        ]);
-    }
-
-    public function checkout(Request $request)
-    {
-        $user = Auth::user();
-        $cart = Cart::where('user_id', $user->id)->get();
-        $bank_accounts = Bank_account::where('user_id', $user->id)->get();
-
-        if($cart->count() == 0)
-        {
-            return redirect()->route('cart');
-        }
-
-        $total_price = 0;
-        foreach($cart as $c){
-            $total_price = $total_price + $c->price;
-        }
-        return view('home.checkout', compact('user', 'cart', 'total_price', 'bank_accounts'));
-    }
-
-    public function delete_CartProduct($id)
-    {
-        $user = Auth::user();
-        $cart = Cart::findOrFail($id);
-        $cart->delete();
-
-        // Cập nhật subtotal và total cho giỏ hàng
-        $subtotal = Cart::sum('price');
-        $total = $subtotal;
-        $cartCount = Cart::where('user_id', Auth::id())->count();
 
 
-        return response()->json([
-            'subtotal' => $subtotal,
-            'total' => $total,
-            'cartCount' => $cartCount
-        ]);
-    }
 
-    public function order(Request $request)
-    {
-        $user = Auth::user();
-        $cart = Cart::where('user_id', $user->id)->get();
 
-        $order = new Order();
-        $order->user_id = $user->id;
-        $customer_address = $request->address . ', ' . $request->city . ', ' . $request->country . ', ' . $request->zip;
-        $order->address = $customer_address;
-        $order->phone = $request->phone;
 
-        $sum_price = 0;
-        foreach($cart as $c){
-            $sum_price = $sum_price + $c->price;
-        }
-        $order->total_price = $sum_price;
 
-        $order->receiver_name = $request->customer_name;
 
-        $order->payment_type = $request->payment_method;
-        $order->status = 'PENDING';
 
-        if($request->payment_method == 'TRANSFER')
-        {
-            $order->bank_id = $request->bank_account;
-            $order->status = 'APPROVED';
-        }
 
-        $order->ship_money = 0;
-        $order->save();
 
-        foreach($cart as $c){
-            $order_detail = new Order_detail();
-            $order_detail->order_id = $order->id;
-            $order_detail->product_id = $c->product_id;
-            $order_detail->quantity = $c->quantity;
-            $order_detail->price = $c->price;
-            $c->delete();
-            $order_detail->save();
-        }
-
-        // "customer_name" => "user"
-        // "address" => "Number 11"
-        // "country" => "USA"
-        // "city" => "New York"
-        // "zip" => "1231312"
-        // "phone" => "0977823441"
-        // "email" => "user@gmail.com"
-        // "additional_info" => null
-        // "payment_method" => "bank_transfer"
-
-        toastr()->closeButton(true)->timeOut(2000)->success('order placed successfully');
-        return redirect()->route('welcome');
-    }
 
     public function profile()
     {
