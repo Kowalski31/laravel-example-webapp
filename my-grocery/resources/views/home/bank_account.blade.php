@@ -10,7 +10,11 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
-
+    <style>
+        .mb-5 {
+            margin-bottom: 12rem!important;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,7 +27,7 @@
     <!-- End Navigation -->
 
     <!-- Bank Account -->
-    <div class="container mt-5">
+    <div class="container mt-5 mb-5">
         <h1 class="text-center mb-4">Bank Accounts</h1>
 
 

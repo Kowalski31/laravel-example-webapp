@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\OrderController;
+use App\Http\Controllers\User\BankController;
 
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
@@ -37,10 +38,10 @@ Route::middleware(['auth'])->group(function(){
     Route::get('history', [HomeController::class, 'history'])->name('history');
 
     Route::prefix('bank_account')->group(function(){
-        Route::get('/', [HomeController::class, 'view_bank'])->name('view_bank');
-        Route::post('add', [HomeController::class, 'add_bank'])->name('add_bank');
-        Route::post('edit/{id}', [HomeController::class, 'edit_bank'])->name('edit_bank');
-        Route::get('delete/{id}', [HomeController::class, 'delete_bank'])->name('delete_bank');
+        Route::get('/', [BankController::class, 'viewBank'])->name('view_bank');
+        Route::post('add', [BankController::class, 'addBank'])->name('add_bank');
+        Route::post('edit/{id}', [BankController::class, 'editBank'])->name('edit_bank');
+        Route::get('delete/{id}', [BankController::class, 'deleteBank'])->name('delete_bank');
     });
 });
 

@@ -29,6 +29,16 @@ class OrderController extends Controller
     // "payment_method" => "bank_transfer"
     public function order(Request $request)
     {
+        $request->validate([
+            'customer_name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'zip' => 'required|int|max:7',
+            'phone' => 'required|int|max:10',
+            'payment_method' => 'required|string|max:255',
+        ]);
+
         $user = Auth::user();
 
         // Tính tổng giá trị của giỏ hàng trực tiếp bằng Eloquent

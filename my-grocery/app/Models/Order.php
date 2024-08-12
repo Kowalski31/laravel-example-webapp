@@ -18,8 +18,8 @@ class Order extends Model
         'ship_money',
     ];
 
-    protected function order_detail() {
-        return $this->hasMany(Order_detail::class);
+    public function order_detail() {
+        return $this->hasMany(Order_detail::class, 'order_id');
     }
     use HasFactory;
 }

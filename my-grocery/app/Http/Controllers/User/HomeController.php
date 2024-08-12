@@ -34,83 +34,22 @@ class HomeController extends Controller
         return view('home.product_detail', compact('user', 'product', 'categories'));
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function profile()
     {
         $user = Auth::user();
         return view('home.profile', compact('user'));
     }
 
-    public function view_bank()
-    {
-        $user = Auth::user();
-        $bank_accounts = Bank_account::where('user_id', $user->id)->get();
-
-        return view('home.bank_account', compact('user', 'bank_accounts'));
-    }
-
-    public function add_bank(Request $request)
-    {
-        $user = Auth::user();
-
-        $bank = new Bank_account();
-        $bank->user_id = $user->id;
-
-        $bank->bank_name = $request->bank_name;
-
-        $bank->account_number = $request->account_number;
-        $bank->save();
-
-        toastr()->closeButton(true)->timeOut(2000)->success('bank account added successfully');
-        return redirect()->back();
-    }
-
-    public function edit_bank(Request $request, $id)
-    {
-        $bank_account = Bank_account::findOrFail($id);
-        $bank_account->bank_name = $request->bank_name;
-        $bank_account->account_number = $request->account_number;
-        $bank_account->save();
-
-        toastr()->closeButton(true)->timeOut(2000)->success('bank account updated successfully');
-        return redirect()->back();
-    }
-
-    public function delete_bank($id)
-    {
-        $bank_account = Bank_account::findOrFail($id);
-        $bank_account->delete();
-
-        toastr()->closeButton(true)->timeOut(2000)->info('bank account deleted successfully');
-        return redirect()->back();
-    }
-
     public function history()
     {
         $user = Auth::user();
-        $orders = Order::where('user_id', $user->id);
-        $order_detail = array();
 
-        if($orders->count() > 0){
-            $orders = $orders->get();
-            foreach($orders as $order){
-                $order_details[$order->id] = Order_detail::where('order_id', $order->id)->get();
-            }
+        $orders = Order::with('order_detail')->where('user_id', $user->id)->get();
+
+        $order_details = array();
+        foreach($orders as $order) {
+            $order_details[$order->id] = $order->order_detail;
         }
-
-        // dd($order_detail);
 
         return view('home.history', compact('user', 'orders', 'order_details'));
     }

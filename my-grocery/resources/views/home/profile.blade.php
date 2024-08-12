@@ -24,7 +24,9 @@
 
     <!-- Body -->
 
-    <a href="{{ route('view_bank') }}">Bank</a>
+    <div class="" style="height: 32.7vh">
+        <a href="{{ route('view_bank') }}">Bank</a>
+    </div>
     <!-- End Body -->
 
     <!-- Footer -->
