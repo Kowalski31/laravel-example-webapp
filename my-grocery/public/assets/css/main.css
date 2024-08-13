@@ -287,3 +287,17 @@
   }
 
 /* main end */
+
+
+/* custom product */
+.custom-btn {
+    border-radius: 40px;
+}
+
+.image-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: fill;
+}
+
+/* custom product end */

@@ -25,12 +25,14 @@
 
                                 <button class="btn btn-primary" type="submit">Add to Cart</button>
                             </div>
-
                         </form>
 
                     </div>
                 </div>
             </div>
         @endforeach
+    </div>
+    <div class="d-flex justify-content-center">
+        {{ $products->links() }}
     </div>
 </main>

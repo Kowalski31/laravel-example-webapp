@@ -21,19 +21,10 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/categories.css') }}" rel="stylesheet">
     <title>Admin Dashboard</title>
 
     <style>
-        .custom-btn {
-            border-radius: 40px;
-        }
-
-        .image-preview {
-            width: 100px;
-            height: 100px;
-            object-fit: fill;
-        }
+        
     </style>
 </head>
 
@@ -45,11 +36,30 @@
 
         <div class="main-content p-3 ">
             <!-- Button trigger modal -->
+
+
             <div class="container mt-4 d-flex justify-content-center">
-                <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal"
-                    data-bs-target="#addProductModal">
-                    Add Product
-                </button>
+
+                <div class="d-flex align-items-center">
+
+                    <button type="button" class="btn btn-primary btn-lg me-3" data-bs-toggle="modal"
+                        data-bs-target="#addProductModal">
+                        Add Product
+                    </button>
+
+                    <form action="{{ route('filterProduct') }}" method="POST" class="d-flex">
+                        @csrf
+                        <div class="input-group">
+                            <select class="form-select" id="category" name="category">
+                                <option value="">All</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                            <button class="btn btn-primary" type="submit">Filter</button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
             <!-- Modal -->
@@ -63,7 +73,8 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="addProductForm" method="post" action="{{ route('addProduct') }} " enctype="multipart/form-data">
+                            <form id="addProductForm" method="post" action="{{ route('addProduct') }} "
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Title</label>
@@ -86,7 +97,7 @@
                                 <div class="mb-3">
                                     <label for="category" class="form-label">Category</label>
                                     <select class="form-control" id="category" name="categories[]" multiple required>
-                                        @foreach($categories as $category)
+                                        @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
@@ -94,7 +105,8 @@
 
                                 <div class="mb-3">
                                     <label for="images" class="form-label">Product Images</label>
-                                    <input type="file" class="form-control" id="images" name="images[]" multiple>
+                                    <input type="file" class="form-control" id="images" name="images[]"
+                                        multiple>
                                 </div>
 
                                 <div class="row" id="image-preview"></div>
@@ -133,14 +145,14 @@
                                 <td scope="col-2">{{ $item->price }}</td>
                                 <td scope="col-2">{{ $item->quantity }}</td>
                                 <td scope="col-2">
-                                    @foreach($item->categories as $category)
+                                    @foreach ($item->categories as $category)
                                         <li>{{ $category->name }}</li>
                                     @endforeach
                                 </td>
 
                                 <td scope="col-2">
                                     <div class="row d-flex justify-content-evenly">
-                                        @foreach($item->pictures as $image)
+                                        @foreach ($item->pictures as $image)
                                             {{-- {{dd($image)}} --}}
                                             <div class="col-md-3 mb-3 ">
                                                 <img src="{{ asset('images/' . $image->link) }}"
@@ -151,7 +163,8 @@
                                 </td>
 
                                 <td>
-                                    <button type="button" class="btn btn-secondary custom-btn " data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-secondary custom-btn "
+                                        data-bs-toggle="modal"
                                         data-bs-target="#editProductModal-{{ $item->id }}">
                                         Edit
                                     </button>
@@ -171,7 +184,8 @@
                                             </div>
                                             <div class="modal-body ">
                                                 <form id="editProductForm-{{ $item->id }}" method="post"
-                                                    action="{{ route('editProduct', $item->id) }}" enctype="multipart/form-data">
+                                                    action="{{ route('editProduct', $item->id) }}"
+                                                    enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="mb-3">
                                                         <label for="title" class="form-label">Title</label>
@@ -197,9 +211,11 @@
 
                                                     <div class="mb-3">
                                                         <label for="category" class="form-label">Category</label>
-                                                        <select class="form-control" id="category" name="categories[]" multiple required>
-                                                            @foreach($categories as $category)
-                                                                <option value="{{ $category->id }}" {{ in_array($category->id, $item->categories->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                                        <select class="form-control" id="category"
+                                                            name="categories[]" multiple required>
+                                                            @foreach ($categories as $category)
+                                                                <option value="{{ $category->id }}"
+                                                                    {{ in_array($category->id, $item->categories->pluck('id')->toArray()) ? 'selected' : '' }}>
                                                                     {{ $category->name }}
                                                                 </option>
                                                             @endforeach
@@ -207,13 +223,16 @@
                                                     </div>
 
                                                     <div class="mb-3">
-                                                        <label for="images" class="form-label">Product Images</label>
-                                                        <input type="file" class="form-control" id="images" name="images[]" multiple>
+                                                        <label for="images" class="form-label">Product
+                                                            Images</label>
+                                                        <input type="file" class="form-control" id="images"
+                                                            name="images[]" multiple>
                                                     </div>
 
 
 
-                                                    <button type="submit" class="btn btn-primary ">Edit Product</button>
+                                                    <button type="submit" class="btn btn-primary ">Edit
+                                                        Product</button>
                                                 </form>
                                             </div>
                                         </div>

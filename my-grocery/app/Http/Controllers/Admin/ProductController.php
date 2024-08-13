@@ -20,6 +20,20 @@ class ProductController extends Controller
         return view('admin.product', compact('categories', 'products'));
     }
 
+    public function filterProduct(Request $request)
+    {
+        $category_id = $request->category;
+        $categories = Category::all();
+
+        $products = Product::when($category_id, function($query) use ($category_id) {
+            $query->whereHas('categories', function($query) use ($category_id) {
+                $query->where('category_id', $category_id);
+        });
+        })->paginate(4);
+
+        return view('admin.product', compact('products', 'categories'));
+    }
+
     public function addProduct(Request $request) {
 
         $request->validate([

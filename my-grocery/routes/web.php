@@ -63,6 +63,7 @@ Route::middleware(['auth', 'admin'])->group(function() {
             Route::post('add', [ProductController::class, 'addProduct'])->name('addProduct');
             Route::post('edit/{id}', [ProductController::class, 'editProduct'])->name('editProduct');
             Route::get('delete/{id}', [ProductController::class, 'deleteProduct'])->name('deleteProduct');
+            Route::post('filter', [ProductController::class, 'filterProduct'])->name('filterProduct');
         });
 
     });

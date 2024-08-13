@@ -20,7 +20,7 @@ class HomeController extends Controller
     public function welcome()
     {
         $user = Auth::user();
-        $products = Product::all();
+        $products = Product::paginate(8);
         $categories = Category::all();
 
         return view('welcome', compact('user', 'products', 'categories'));
