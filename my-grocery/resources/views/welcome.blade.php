@@ -1,35 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.home')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-commerce Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+@section('title', 'Welcome')
 
-    <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
-</head>
+@section('content')
 
-<body>
-    <!-- Header -->
-    @include('home.header')
-    <!-- End Header -->
+    <!-- Featured Products -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h3>Featured Products</h3>
+        </div>
+    </div>
 
-    <!-- Navigation -->
-    @include('home.nav')
-    
-    <!-- Body -->
-    @include('home.body')
+    <div class="row featured-products">
+        @foreach ($products as $product)
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 product-card" data-product-id="{{ $product->id }}">
+                    <div class="card-img-top-wrapper">
+                        <img src="./images/{{ $product->pictures->first() ? $product->pictures->first()->link : 'temp.png' }}"
+                            class="card-img-top" alt="{{ $product->title }}">
+                    </div>
 
-    <!-- Footer -->
-    @include('home.footer')
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $product->title }}</h5>
+                        <p class="card-text">${{ $product->price }}</p>
+                        <form action="{{ route('addCart', $product->id) }}" method="POST">
+                            @csrf
+                            <div class="input-group mb-3">
 
+                                <button class="btn btn-primary" type="submit">Add to Cart</button>
+                            </div>
+                        </form>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="{{ asset('home-js/home_index.js') }}"></script>
-</body>
-
-</html>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+    <div class="d-flex justify-content-center">
+        {{ $products->links() }}
+    </div>
+@endsection

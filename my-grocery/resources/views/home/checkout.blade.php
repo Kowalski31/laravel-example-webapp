@@ -1,38 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.home')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+@section('title', 'Checkout')
 
-    <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
-    <style>
-        h2 {
-            margin-bottom: 20px;
-        }
-
-        .list-group-item {
-            background-color: #fff;
-            border: 1px solid #dee2e6;
-        }
-    </style>
-</head>
-
-<body>
-    <!-- Header -->
-    @include('home.header')
-    <!-- End Header -->
-
-    <!-- Navigation -->
-    @include('home.nav')
-    <!-- End Navigation -->
+@section('content')
 
     <!-- Body -->
-    <div class="container mt-5 mb-5" >
+    <div class="container mt-5 mb-5">
         <div class="row">
             <!-- Billing Details -->
             <div class="col-md-7 border-end">
@@ -42,7 +15,8 @@
                     <div class="row g-3">
                         <div class="col-12">
                             <label for="CustomerName" class="form-label">Customer Name *</label>
-                            <input type="text" class="form-control" id="CustomerName" name="customer_name" value="{{ $user->name }}" required>
+                            <input type="text" class="form-control" id="CustomerName" name="customer_name"
+                                value="{{ $user->name }}" required>
                         </div>
 
                         <div class="col-12">
@@ -51,7 +25,8 @@
                         </div>
                         <div class="col-md-6">
                             <label for="country" class="form-label">Country *</label>
-                            <input type="text" class="form-control" id="country" name="country" value="{{ $user->address }}" required>
+                            <input type="text" class="form-control" id="country" name="country"
+                                value="{{ $user->address }}" required>
                         </div>
                         <div class="col-md-6">
                             <label for="city" class="form-label">City / Town *</label>
@@ -63,19 +38,21 @@
                         </div>
                         <div class="col-md-6">
                             <label for="phone" class="form-label">Phone *</label>
-                            <input type="text" class="form-control" id="phone" name="phone" value="{{ $user->phone }}" required>
+                            <input type="text" class="form-control" id="phone" name="phone"
+                                value="{{ $user->phone }}" required>
                         </div>
 
                         <div class="col-12">
                             <label for="email" class="form-label">Email address *</label>
-                            <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
+                            <input type="email" class="form-control" id="email" name="email"
+                                value="{{ $user->email }}">
                         </div>
                         <div class="col-12">
                             <label for="additionalInfo" class="form-label">Additional information</label>
                             <textarea class="form-control" id="additionalInfo" name="additional_info" rows="3"></textarea>
                         </div>
 
-                        
+
                     </div>
                 </form>
             </div>
@@ -103,13 +80,15 @@
                 <!-- Payment Method -->
                 <h2 class="mb-3">Payment Method</h2>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="payment_method" id="paymentCash" value="CASH" form="checkoutForm" required>
+                    <input class="form-check-input" type="radio" name="payment_method" id="paymentCash" value="CASH"
+                        form="checkoutForm" required>
                     <label class="form-check-label" for="paymentCash">
                         Cash
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="payment_method" id="paymentBank" value="TRANSFER" form="checkoutForm" required>
+                    <input class="form-check-input" type="radio" name="payment_method" id="paymentBank" value="TRANSFER"
+                        form="checkoutForm" required>
                     <label class="form-check-label" for="paymentBank">
                         Bank Transfer
                     </label>
@@ -120,7 +99,8 @@
                     <h3>Select Bank Account</h3>
                     @foreach ($bank_accounts as $account)
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="bank_account" id="bankAccount-{{ $account->id }}" value="{{ $account->id }}" form="checkoutForm">
+                            <input class="form-check-input" type="radio" name="bank_account"
+                                id="bankAccount-{{ $account->id }}" value="{{ $account->id }}" form="checkoutForm">
                             <label class="form-check-label" for="bankAccount-{{ $account->id }}">
                                 {{ $account->bank_name }} - {{ $account->account_number }}
                             </label>
@@ -134,31 +114,22 @@
         </div>
     </div>
     <!-- End Body -->
+@endsection
 
-
-    <!-- Footer -->
-    @include('home.footer')
-    <!-- End Footer -->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="{{ asset('home-js/home_index.js') }}"></script>
-
+@section('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-        var paymentBank = document.getElementById('paymentBank');
-        var paymentCash = document.getElementById('paymentCash');
-        var bankAccounts = document.getElementById('bankAccounts');
+        document.addEventListener('DOMContentLoaded', function() {
+            var paymentBank = document.getElementById('paymentBank');
+            var paymentCash = document.getElementById('paymentCash');
+            var bankAccounts = document.getElementById('bankAccounts');
 
-        paymentBank.addEventListener('change', function () {
-            bankAccounts.style.display = 'block';
-        });
+            paymentBank.addEventListener('change', function() {
+                bankAccounts.style.display = 'block';
+            });
 
-        paymentCash.addEventListener('change', function () {
-            bankAccounts.style.display = 'none';
+            paymentCash.addEventListener('change', function() {
+                bankAccounts.style.display = 'none';
+            });
         });
-    });
     </script>
-</body>
-
-</html>
+@endsection

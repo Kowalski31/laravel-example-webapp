@@ -1,31 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.home')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produc Detail</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+@section('title', 'Product detail')
 
-    <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
-    <style>
-        .carousel-item img {
-            width: 800px;
-            height: 400px;
-            object-fit: contain;
-        }
-    </style>
-</head>
-
-<body>
-    <!-- Header -->
-    @include('home.header')
-
-    <!-- Navigation -->
-    @include('home.nav')
-    <!-- Product Detail -->
+@section('content')
+<!-- Product Detail -->
     <div class="container mt-5">
         <div class="row">
             <!-- Image Section -->
@@ -68,7 +46,8 @@
                 <form method="POST" action="{{ route('addCart', $product->id) }}">
                     @csrf
                     <div class="input-group mb-3">
-                        <input type="number" name="quantity" class="form-control" placeholder="QTY" value="1" min="1">
+                        <input type="number" name="quantity" class="form-control" placeholder="QTY" value="1"
+                            min="1">
                         <button class="btn btn-primary" type="submit">Add to Cart</button>
                     </div>
                     <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -125,11 +104,4 @@
         <!-- End Tabs Section -->
     </div>
 
-    <!-- Footer -->
-    @include('home.footer')
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-</body>
-
-</html>
+@endsection

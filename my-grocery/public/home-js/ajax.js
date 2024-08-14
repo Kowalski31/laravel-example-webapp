@@ -23,13 +23,9 @@ document.addEventListener('DOMContentLoaded', function () {
             xhr.onload = function () {
                 if (xhr.status === 200) {
                     var response = JSON.parse(xhr.responseText);
-                    cartItem.querySelector('.item-total').textContent = '$' + response
-                        .itemTotal;
-                    document.getElementById('subtotal').textContent = '$' + response
-                        .subtotal;
+                    cartItem.querySelector('.item-total').textContent = '$' + response.itemTotal;
+                    document.getElementById('subtotal').textContent = '$' + response.subtotal;
                     document.getElementById('total').textContent = '$' + response.total;
-
-
                 } else {
                     console.error("Error updating quantity");
                 }
@@ -75,12 +71,12 @@ document.addEventListener('DOMContentLoaded', function () {
                             var emptyCart = document.createElement('div');
                             emptyCart.className = 'col-md-8';
                             emptyCart.innerHTML = `
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title text-center">Your cart is empty</h4>
-                </div>
-            </div>
-        `;
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center">Your cart is empty</h4>
+                                    </div>
+                                </div>
+                            `;
                             // Thêm CSS height: 32.7vh cho class .col-md-8
                             emptyCart.style.height = '32.7vh';
 

@@ -23,9 +23,22 @@ class CartController extends Controller
 
         $cart = Cart::where('user_id', $user->id)->get();
 
+        // Tạo mảng để lưu subtotal cho từng sản phẩm trong giỏ hàng
+        $item_subtotals = [];
+
+        $subtotal = 0;
+        foreach ($cart as $item) {
+            $itemTotal = $item->quantity * $item->product->price;
+            $item_subtotals[$item->id] = $itemTotal;
+            $subtotal += $itemTotal;
+        }
+
+        $shipping_fee = 0; // Có thể thay đổi nếu cần
+        $total = $subtotal + $shipping_fee;
+
         $cart_count = Cart::where('user_id', $user->id)->count();
 
-        return view('home.cart', compact('user', 'cart', 'cart_count'));
+        return view('home.cart', compact('user', 'cart', 'cart_count', 'subtotal', 'total', 'item_subtotals'));
     }
 
 
@@ -83,6 +96,7 @@ class CartController extends Controller
                                 ->where('user_id', $user->id)
                                 ->first();
 
+
             // Truy xuất giá sản phẩm và liên kết hình ảnh trong một lần truy vấn
             $product = Product::with('pictures')->findOrFail($id);
             $product_price = $product->price;
@@ -135,26 +149,52 @@ class CartController extends Controller
 
     public function updateQuantity(Request $request, $id)
     {
-       $cart = Cart::findOrFail($id);
+    //    $cart = Cart::findOrFail($id);
 
-        // Cập nhật số lượng sản phẩm
-        $cart->quantity = $request->input('quantity');
-        $cart->price = $cart->quantity * $cart->product->price; // Cập nhật giá trị của sản phẩm
-        $cart->save();
+    //     // Cập nhật số lượng sản phẩm
+    //     $cart->quantity = $request->input('quantity');
+    //     $cart->price = $cart->quantity * $cart->product->price; // Cập nhật giá trị của sản phẩm
+    //     $cart->save();
 
-        // Tính toán lại tổng giá trị của sản phẩm
-        $itemTotal = $cart->price;
+    //     // Tính toán lại tổng giá trị của sản phẩm
+    //     $itemTotal = $cart->price;
 
-        // Cập nhật subtotal và total cho giỏ hàng
-        $subtotal = Cart::sum('price');
-        $total = $subtotal;
+    //     // Cập nhật subtotal và total cho giỏ hàng
+    //     $subtotal = Cart::sum('price');
+    //     $total = $subtotal;
 
-        // Trả về phản hồi JSON
-        return response()->json([
-            'itemTotal' => $itemTotal,
-            'subtotal' => $subtotal,
-            'total' => $total
-        ]);
+    //     // Trả về phản hồi JSON
+    //     return response()->json([
+    //         'itemTotal' => $itemTotal,
+    //         'subtotal' => $subtotal,
+    //         'total' => $total
+    //     ]);
+
+    $cart = Cart::findOrFail($id);
+
+    // Cập nhật số lượng sản phẩm
+    $cart->quantity = $request->input('quantity');
+    $cart->price = $cart->quantity * $cart->product->price; // Cập nhật giá trị của sản phẩm
+    $cart->save();
+
+
+    $itemTotal = $cart->price;
+
+
+    $cartItems = Cart::all();
+    $subtotal = $cartItems->sum(function ($item) {
+        return $item->quantity * $item->product->price;
+    });
+
+
+    $total = $subtotal;
+
+
+    return response()->json([
+        'itemTotal' => $itemTotal,
+        'subtotal' => $subtotal,
+        'total' => $total,
+    ]);
     }
 
 }
