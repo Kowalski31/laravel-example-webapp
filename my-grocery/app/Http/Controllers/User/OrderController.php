@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -34,8 +35,8 @@ class OrderController extends Controller
             'address' => 'required|string|max:255',
             'country' => 'required|string|max:255',
             'city' => 'required|string|max:255',
-            'zip' => 'required|int|max:7',
-            'phone' => 'required|int|max:10',
+            'zip' => 'required|string|max:7',
+            'phone' => 'required|string|max:10',
             'payment_method' => 'required|string|max:255',
         ]);
 

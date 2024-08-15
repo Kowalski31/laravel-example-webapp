@@ -1,8 +1,13 @@
 html, body {
+
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 
+}
+
+body {
+    flex: 1;
 }
 
 /* nav */
@@ -81,7 +86,7 @@ html, body {
     background-color: #20c997;
     color: #fff;
     padding: 40px 0;
-    position: relative;
+    margin-top: auto;
     width: 100%;
 }
 

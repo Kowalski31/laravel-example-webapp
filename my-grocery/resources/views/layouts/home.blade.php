@@ -25,13 +25,15 @@
     <!-- Navigation -->
     @include('home.nav')
 
-    <!-- Body -->
-    <main class="container mt-4">
-        @yield('content')
-    </main>
+    <div class="d-flex flex-column min-vh-100">
+        <!-- Body -->
+        <main class="container mt-4 mb-5">
+            @yield('content')
+        </main>
 
-    <!-- Footer -->
-    @include('home.footer')
+        <!-- Footer -->
+        @include('home.footer')
+    </div>
 
     @yield('scripts')
 

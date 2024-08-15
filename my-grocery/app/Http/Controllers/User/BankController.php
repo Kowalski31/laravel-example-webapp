@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Product;
@@ -32,12 +33,11 @@ class BankController extends Controller
         try {
                 $request->validate([
                 'bank_name' => 'required|string|max:255',
-                'account_number' => 'required|int|digits:13|gt:0',
-
+                'account_number' => 'required|string|max:13|gt:0',
             ]);
         }
         catch (\Exception $e) {
-            toastr()->closeButton(true)->timeOut(2000)->error('bank account added failed');
+            toastr()->closeButton(true)->timeOut(2000)->error($e->getMessage());
             return redirect()->back();
         }
 
@@ -57,7 +57,7 @@ class BankController extends Controller
     {
         $request->validate([
             'bank_name' => 'required|string|max:255',
-            'account_number' => 'required|int|digits:13|gt:0',
+            'account_number' => 'required|string|max:13|gt:0',
         ]);
 
         $bank_account = Bank_account::findOrFail($id);

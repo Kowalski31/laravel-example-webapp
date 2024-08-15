@@ -1,0 +1,53 @@
+body,
+html {
+    height: 100%;
+    margin: 0;
+    background: linear-gradient(to bottom right, #5D54A4, #7B64C1);
+    font-family: 'Poppins', sans-serif;
+}
+
+.login-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../auth/premium_photo.jpeg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.login-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    backdrop-filter: blur(8px);
+    color: rgb(43, 38, 38);
+}
+
+.login-box h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.input-group-text {
+    color: rgb(0, 0, 0);
+}
+
+.form-check-input {
+    background-color: transparent;
+    border: 1px solid white;
+}
+
+.btn-primary {
+    background-color: white;
+    color: #5D54A4;
+    border-radius: 20px;
+}
+
+a {
+    color: #4072df;
+}
+
+a:hover {
+    text-decoration: underline;
+}
