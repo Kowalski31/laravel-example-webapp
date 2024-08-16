@@ -12,6 +12,7 @@
         <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addBankAccountModal">Add Bank
             Account</button>
 
+            
         <table class="table table-bordered">
             <thead class="table-info">
                 <tr>
@@ -40,7 +41,7 @@
                     <!-- Edit Bank Account Modal -->
                     <div class="modal fade" id="editBankAccountModal-{{ $account->id }}" tabindex="-1"
                         aria-labelledby="editBankAccountModalLabel-{{ $account->id }}" aria-hidden="true">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="editBankAccountModalLabel-{{ $account->id }}">Edit Bank
@@ -74,8 +75,8 @@
         <!-- Add Bank Account Modal -->
         <div class="modal fade" id="addBankAccountModal" tabindex="-1" aria-labelledby="addBankAccountModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content ">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addBankAccountModalLabel">Add Bank Account</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

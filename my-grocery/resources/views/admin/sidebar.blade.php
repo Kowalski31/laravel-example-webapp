@@ -58,7 +58,7 @@
                 <span>Settings</span>
             </a>
         </li>
-        
+
         <li class="">
             <a href="{{ route('logout') }}" class="d-flex align-items-center"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

@@ -11,7 +11,7 @@
             <h1 class="text-center mb-4">Your Cart</h1>
 
             @if ($cart_count == 0)
-                <div class="col-md-8" style="height: 32.7vh">
+                <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title text-center">Your cart is empty</h4>

@@ -9,6 +9,22 @@
         <div class="col-md-12">
             <h3>Featured Products</h3>
         </div>
+
+        <div class="col-md-5">
+            <form action="{{ route('filterProductHome') }}" method="GET" class="d-flex">
+                @csrf
+                <div class="input-group">
+                    <select class="form-select" id="category" name="category">
+                        <option value="">All</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                    <button class="btn btn-primary" type="submit">Filter</button>
+                </div>
+            </form>
+        </div>
+
     </div>
 
     <div class="row featured-products">
@@ -36,7 +52,7 @@
             </div>
         @endforeach
     </div>
-    
+
     <div class="d-flex justify-content-center mt-5">
         {{ $products->links() }}
     </div>

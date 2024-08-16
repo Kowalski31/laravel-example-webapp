@@ -19,6 +19,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
+Route::get('filter', [HomeController::class, 'filterProductHome'])->name('filterProductHome');
 
 
 Route::middleware(['auth'])->group(function(){
@@ -36,6 +37,8 @@ Route::middleware(['auth'])->group(function(){
 
     Route::get('profile', [HomeController::class, 'profile'])->name('profile');
     Route::get('history', [HomeController::class, 'history'])->name('history');
+    Route::post('add_avatar', [HomeController::class, 'addAvatar'])->name('add_avatar');
+
 
     Route::prefix('bank_account')->group(function(){
         Route::get('/', [BankController::class, 'viewBank'])->name('view_bank');
@@ -63,7 +66,7 @@ Route::middleware(['auth', 'admin'])->group(function() {
             Route::post('add', [ProductController::class, 'addProduct'])->name('addProduct');
             Route::post('edit/{id}', [ProductController::class, 'editProduct'])->name('editProduct');
             Route::get('delete/{id}', [ProductController::class, 'deleteProduct'])->name('deleteProduct');
-            Route::post('filter', [ProductController::class, 'filterProduct'])->name('filterProduct');
+            Route::get('filter', [ProductController::class, 'filterProduct'])->name('filterProduct');
         });
 
     });

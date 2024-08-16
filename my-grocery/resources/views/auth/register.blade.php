@@ -16,7 +16,7 @@
                         @csrf
                         <!-- Name -->
                         <div class="mb-3">
-                            <label for="name" class="form-label">{{ __('Name') }}</label>
+                            <label for="name" class="form-label">{{ __('Name *') }}</label>
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
                                 name="name" value="{{ old('name') }}" required autofocus>
                             @error('name')
@@ -28,7 +28,7 @@
 
                         <!-- Email -->
                         <div class="mb-3">
-                            <label for="email" class="form-label">{{ __('E-mail') }}</label>
+                            <label for="email" class="form-label">{{ __('E-mail *') }}</label>
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
                                 name="email" value="{{ old('email') }}" required>
                             @error('email')
@@ -98,7 +98,7 @@
                             @enderror
                         </div>
 
-                        
+
 
                         <div class="text-center">
                             <p>Already have an account? <a href="{{ route('login') }}">Login</a></p>

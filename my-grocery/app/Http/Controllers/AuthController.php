@@ -53,8 +53,6 @@ class AuthController extends Controller
             'phone' => 'required|string|max:15',
             'address' => 'nullable|string|max:255',
             'gender' => 'required|string|in:male,female,others',
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
-
         ]);
 
         $user = User::create([
@@ -66,7 +64,6 @@ class AuthController extends Controller
             'gender' => $request->gender,
             'role' => 'user',
             'is_active' => true,
-            'avatar' => $request->profile_picture,
         ]);
 
         Auth::login($user);

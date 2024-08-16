@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Product;
 use App\Models\Category;
@@ -22,6 +23,21 @@ class HomeController extends Controller
         $user = Auth::user();
         $products = Product::paginate(8);
         $categories = Category::all();
+
+        return view('welcome', compact('user', 'products', 'categories'));
+    }
+
+    public function filterProductHome(Request $request)
+    {
+        $user = Auth::user();
+        $category_id = $request->category;
+        $categories = Category::all();
+
+        $products = Product::when($category_id, function($query) use ($category_id) {
+            $query->whereHas('categories', function($query) use ($category_id) {
+                $query->where('category_id', $category_id);
+        });
+        })->paginate(8);
 
         return view('welcome', compact('user', 'products', 'categories'));
     }
@@ -54,5 +70,26 @@ class HomeController extends Controller
         return view('home.history', compact('user', 'orders', 'order_details'));
     }
 
+    public function addAvatar(Request $request)
+    {
+        $request->validate([
+            'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
 
+        $user = Auth::user();
+
+        if($user->avatar) {
+            Storage::delete('public/user-ava' . $user->avatar);
+        }
+
+        $profile_picture = $request->file('profile_picture');
+        $profile_picture_name = time() . '_' . $profile_picture->getClientOriginalName();
+        $profile_picture->move(public_path('user-ava'), $profile_picture_name);
+
+        $user->avatar = $profile_picture_name;
+        $user->save();
+
+        \toastr()->success('Avatar updated successfully');
+        return redirect()->back();
+    }
 }

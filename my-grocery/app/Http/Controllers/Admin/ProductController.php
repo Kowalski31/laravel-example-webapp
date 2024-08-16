@@ -11,7 +11,7 @@ use App\Models\Product_picture;
 
 class ProductController extends Controller
 {
-    // Start Product
+    
     public function viewProduct()
     {
         $categories = Category::all();

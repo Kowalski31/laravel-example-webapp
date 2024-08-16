@@ -20,9 +20,10 @@
                             <i class="bx bx-user-circle" style="font-size: 1.9rem;"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profile') }}">"{{ $user->name }}" Profile</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{{ route('view_bank') }}">Bank</a></li>
                             <li><a class="dropdown-item" href="#">Settings</a></li>
-                            
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
