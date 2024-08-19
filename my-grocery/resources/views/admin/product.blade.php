@@ -170,6 +170,16 @@
                                             action="{{ route('editProduct', $item->id) }}" enctype="multipart/form-data">
                                             @csrf
                                             <div class="mb-3">
+                                                <label for="status" class="form-label">Status</label>
+                                                <select class="form-select" id="status" name="status" required>
+                                                    <option value="1" {{ $item->status == 1 ? 'selected' : '' }}>Active
+                                                    </option>
+                                                    <option value="0" {{ $item->status == 0 ? 'selected' : '' }}>Inactive
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                            <div class="mb-3">
                                                 <label for="title" class="form-label">Title</label>
                                                 <input type="text" class="form-control" id="title" name="title"
                                                     value="{{ $item->title }}" required>

@@ -81,6 +81,7 @@ class ProductController extends Controller
 
     public function editProduct(Request $request, $id){
         $request->validate([
+            'status' => 'required|string',
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric',
@@ -92,6 +93,13 @@ class ProductController extends Controller
         ]);
 
         $product_target = Product::findOrFail($id);
+
+        if($request->status == '1') {
+            $product_target->status = 'active';
+        } else {
+            $product_target->status = 'inactive';
+        }
+
         $product_target->title = $request->title;
         $product_target->description = $request->description;
         $product_target->price = $request->price;
