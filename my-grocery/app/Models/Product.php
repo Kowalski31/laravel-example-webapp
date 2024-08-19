@@ -20,8 +20,25 @@ class Product extends Model
     }
 
     public function pictures()
-    { 
+    {
         return $this->hasMany(Product_picture::class);
     }
+
+    public function carts()
+    {
+        return $this->belongsToMany(Cart::class, 'product_id', 'cart_id');
+    }
+
+    public function product_details()
+    {
+        return $this->hasMany(Product_detail::class);
+    }
+
+    public function order_details()
+    {
+        return $this->belongsToMany(Order_detail::class, 'product_id', 'order_detail_id');
+    }
+
+
     use HasFactory;
 }

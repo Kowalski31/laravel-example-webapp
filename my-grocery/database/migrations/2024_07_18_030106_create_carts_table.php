@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('product_id')->references('id')->on('products')->onUpdate('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_id');
+            // $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreignId('product_id')->references('id')->on('products')->onUpdate('cascade');
 
             $table->integer('quantity');
             $table->string('link')->nullable();

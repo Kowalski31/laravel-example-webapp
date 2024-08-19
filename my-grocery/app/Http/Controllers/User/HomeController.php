@@ -21,7 +21,7 @@ class HomeController extends Controller
     public function welcome()
     {
         $user = Auth::user();
-        $products = Product::paginate(8);
+        $products = Product::where('status', 'active')->paginate(8);
         $categories = Category::all();
 
         return view('welcome', compact('user', 'products', 'categories'));
@@ -33,7 +33,7 @@ class HomeController extends Controller
         $category_id = $request->category;
         $categories = Category::all();
 
-        $products = Product::when($category_id, function($query) use ($category_id) {
+        $products = Product::where('status', 'active')->when($category_id, function($query) use ($category_id) {
             $query->whereHas('categories', function($query) use ($category_id) {
                 $query->where('category_id', $category_id);
         });

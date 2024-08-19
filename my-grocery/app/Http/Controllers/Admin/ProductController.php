@@ -3,15 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Product_picture;
 
 class ProductController extends Controller
 {
-    
+
     public function viewProduct()
     {
         $categories = Category::all();
@@ -126,13 +128,13 @@ class ProductController extends Controller
         foreach ($pictures_array as $picture) {
             if (file_exists(public_path('images/' . $picture->link))) {
                 unlink(public_path('images/' . $picture->link));
+                Storage::delete('images/' . $picture->link);
             }
             $picture->delete();
         }
 
-        $product->categories()->detach();
-
-        $product->delete();
+        $product->status = 'inactive';
+        $product->save();
 
         toastr()->closeButton(true)->timeOut(2000)->error('Product deleted successfully');
         return redirect()->back();

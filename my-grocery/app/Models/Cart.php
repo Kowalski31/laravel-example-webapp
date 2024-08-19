@@ -10,10 +10,10 @@ class Cart extends Model
     use HasFactory;
 
     public function user(){
-        return $this->hasOne('App\Models\User', 'id', 'user_id');
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 
     public function product(){
-        return $this->hasOne('App\Models\Product', 'id', 'product_id');
+        return $this->hasOne(Product::class, 'id', 'product_id');
     }
 }

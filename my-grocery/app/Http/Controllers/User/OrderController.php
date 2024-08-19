@@ -63,6 +63,10 @@ class OrderController extends Controller
             if ($request->payment_method == 'TRANSFER') {
                 $order->bank_id = $request->bank_account;
             }
+            else
+            {
+                $order->bank_id = null;
+            }
 
             $order->ship_money = 0;
             $order->save();
@@ -87,14 +91,14 @@ class OrderController extends Controller
 
             DB::commit();
 
-            // Chuyển hướng người dùng về trang chủ
+
             return redirect()->route('welcome');
         } catch (\Exception $exception) {
             DB::rollBack();
 
-            // Gửi thông báo lỗi
             toastr()->closeButton(true)->timeOut(2000)->error('Order failed: ' . $exception->getMessage());
-            // dd($exception->getMessage());
+            dd($exception->getMessage());
+
             return redirect()->back()->withInput();
         }
     }

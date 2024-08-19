@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            
+
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade');
 
             $table->enum('payment_type', ['CASH', 'TRANSFER']);
             $table->enum('status', ['PENDING', 'APPROVED', 'REJECTED']);
@@ -27,8 +27,8 @@ return new class extends Migration
             $table->string('receiver_name');
             $table->string('ship_money');
 
-            $table->unsignedBigInteger('bank_id');
-            $table->foreign('bank_id')->references('id')->on('bank_accounts')->onUpdate('cascade');
+            $table->unsignedBigInteger('bank_id')->nullable();
+            // $table->foreign('bank_id')->references('id')->on('bank_accounts')->onUpdate('cascade');
         });
     }
 
