@@ -10,7 +10,7 @@
             <h3>Featured Products</h3>
         </div>
 
-        <div class="col-md-5">
+        {{-- <div class="col-md-5">
             <form action="{{ route('filterProductHome') }}" method="GET" class="d-flex">
                 @csrf
                 <div class="input-group">
@@ -23,7 +23,7 @@
                     <button class="btn btn-primary" type="submit">Filter</button>
                 </div>
             </form>
-        </div>
+        </div> --}}
 
     </div>
 
