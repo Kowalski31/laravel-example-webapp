@@ -15,9 +15,10 @@
                 <!-- User Profile Dropdown -->
                 @if ($user)
                     <div class="dropdown">
-                        <a href="#" class="me-3 " id="userDropdown" role="button" data-bs-toggle="dropdown"
+                        <a href="#" class="me-3" id="userDropdown" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <i class="bx bx-user-circle" style="font-size: 1.9rem;"></i>
+                            <img src="{{ $user->avatar ? asset('user-ava/' . $user->avatar) : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp' }}"
+                                alt="avatar" class="rounded-circle img-fluid" style="width: 50px;">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <li><a class="dropdown-item" href="{{ route('profile') }}">"{{ $user->name }}" Profile</a>

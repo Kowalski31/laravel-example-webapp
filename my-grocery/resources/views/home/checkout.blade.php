@@ -95,11 +95,11 @@
                 </div>
 
                 <!-- Bank Accounts (hidden by default) -->
-                <div id="bankAccounts" class="mt-3" style="display: none;">
+                <div id="bankAccounts" class="mt-3" style="display: none;" >
                     <h3>Select Bank Account</h3>
                     @foreach ($bank_accounts as $account)
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="bank_account"
+                            <input class="form-check-input bank-account-input" type="radio" name="bank_account"
                                 id="bankAccount-{{ $account->id }}" value="{{ $account->id }}" form="checkoutForm">
                             <label class="form-check-label" for="bankAccount-{{ $account->id }}">
                                 {{ $account->bank_name }} - {{ $account->account_number }}
@@ -118,18 +118,31 @@
 
 @section('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var paymentBank = document.getElementById('paymentBank');
-            var paymentCash = document.getElementById('paymentCash');
-            var bankAccounts = document.getElementById('bankAccounts');
+        document.addEventListener('DOMContentLoaded', function () {
+        const paymentCash = document.getElementById('paymentCash');
+        const paymentBank = document.getElementById('paymentBank');
+        const bankAccountsDiv = document.getElementById('bankAccounts');
+        const bankAccountInputs = document.querySelectorAll('.bank-account-input');
 
-            paymentBank.addEventListener('change', function() {
-                bankAccounts.style.display = 'block';
-            });
-
-            paymentCash.addEventListener('change', function() {
-                bankAccounts.style.display = 'none';
-            });
+        paymentCash.addEventListener('change', function () {
+            if (paymentCash.checked) {
+                bankAccountsDiv.style.display = 'none';
+                bankAccountInputs.forEach(input => input.required = false);
+            }
         });
+
+        paymentBank.addEventListener('change', function () {
+            if (paymentBank.checked) {
+                bankAccountsDiv.style.display = 'block';
+                bankAccountInputs.forEach(input => input.required = true);
+            }
+        });
+
+        // Set the initial state
+        if (paymentBank.checked) {
+            bankAccountsDiv.style.display = 'block';
+            bankAccountInputs.forEach(input => input.required = true);
+        }
+    });
     </script>
 @endsection
