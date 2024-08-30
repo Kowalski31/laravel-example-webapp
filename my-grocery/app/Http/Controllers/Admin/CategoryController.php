@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Rules\SimilarCategoryName;
 use Illuminate\Http\Request;
 
 use App\Models\Category;
@@ -19,7 +20,7 @@ class CategoryController extends Controller
     public function addCategory(Request $request){
 
         $request->validate([
-            'name' => 'required|string|max:255|unique:categories'
+            'name' => ['required', 'string', 'max:255', new SimilarCategoryName],
         ]);
 
         $category = new Category();
